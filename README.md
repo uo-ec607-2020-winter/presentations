@@ -13,7 +13,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | Lecture | Topic | Resources | Presenter |
 |---------|-------|-----------|-----------|
 | 1 | None | NA | NA | 
-| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) |  | 
+| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | Kevin Song | 
 | 3 |  |  |  |
 | 4 |  |  |  |
 | 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  |  | 
