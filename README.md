@@ -16,7 +16,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | Kevin Song | 
 | 3 |  |  |  |
 | 4 |  |  |  |
-| 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  |  | 
+| 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | SM Shihab Siddiqui | 
 | 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | Robert McDonough | 
 |   | SelectorGadget | [a](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) |  | 
 | 7 | APIs | [a](https://zapier.com/learn/apis/) |  | 
