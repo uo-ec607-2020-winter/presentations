@@ -31,7 +31,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 16 |  |  |  | 
 | 17 |  |  |  | 
 | 18 |  |  |  | 
-| 19 | Big data  | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  |  | 
+| 19 | Big data  | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg  | 
 | 20 |  |  |  | 
 
 ### Open topic and package suggestions
