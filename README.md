@@ -14,7 +14,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 |---------|-------|-----------|-----------|
 | 1 | None | NA | NA | 
 | 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/01-KevinSong-RMarkdown/rmarkdown-intro.html#1) | 
-| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) |  |
+| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) | Shan Zhang |
 | 4 |  |  |  |
 | 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | SM Shihab Siddiqui | 
 | 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | Robert McDonough | 
