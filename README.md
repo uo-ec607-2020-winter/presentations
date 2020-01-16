@@ -23,10 +23,10 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | Colleen O'Brian | 
 | 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) |  | 
 | 10 |  |  |  | 
-| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdall | 
+| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdahl | 
 | 12 |  |  |  |
 | 13 |  |  |  |  
-| 14 |  |  |  |
+| 14 | Shiny |  | Ethan Holdahl |
 | 15 |  |  |  | 
 | 16 |  |  |  | 
 | 17 |  |  |  | 
