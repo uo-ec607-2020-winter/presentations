@@ -133,5 +133,5 @@ Useful resources
 
 ##
 ```{r, out.width='50%', fig.align='center'}
-knitr::include_graphics('Uncle_Sam.jpg')
+knitr::include_graphics('picture10.jpg')
 ```
