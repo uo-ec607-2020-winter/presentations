@@ -13,8 +13,8 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | Lecture | Topic | Resources | Presenter |
 |---------|-------|-----------|-----------|
 | 1 | None | NA | NA | 
-| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | Kevin Song | 
-| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) |  |
+| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/01-KevinSong-RMarkdown/rmarkdown-intro.html#1) | 
+| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) | [Shan Zhang](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/02-ShanZhang-Gitkraken/Gitkraken.html#1)|
 | 4 |  |  |  |
 | 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | SM Shihab Siddiqui | 
 | 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | Robert McDonough | 
@@ -23,10 +23,10 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | Colleen O'Brian | 
 | 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) |  | 
 | 10 |  |  |  | 
-| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdall | 
+| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdahl | 
 | 12 |  |  |  |
 | 13 |  |  |  |  
-| 14 |  |  |  |
+| 14 | Shiny |  | Ethan Holdahl |
 | 15 |  |  |  | 
 | 16 |  |  |  | 
 | 17 |  |  |  | 
