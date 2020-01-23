@@ -77,14 +77,15 @@ What the tidyverse does one operation at a time, data.table does with one concis
 </br>
 
 ```{r, out.width='100%', fig.align='center'}
-include_graphics('picture_1.png')
+knitr::include_graphics('picture_1.jpg')
 ```
 ---
 
 # The Big Idea
 ```{r, out.width='100%', fig.align='center'}
-include_graphics('picture_1.png')
+knitr::include_graphics('picture_1.jpg')
 ```
+
 </br>
 
 To manipulate a data.table, all you do is:
