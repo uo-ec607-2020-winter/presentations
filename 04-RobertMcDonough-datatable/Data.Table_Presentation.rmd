@@ -76,7 +76,7 @@ What the tidyverse does one operation at a time, data.table does with one concis
 
 </br>
 
-```{r, out.width='100%', fig.align='center', fig.cap="Arun Srinivasan | THE #RDATATABLEPACKAGE  (2016)"}
+```{r, out.width='100%', fig.align='center'}
 knitr::include_graphics('dt_pic2.PNG')
 ```
 ---
