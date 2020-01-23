@@ -1,0 +1,76 @@
+---
+title: "SelectorGadget"
+author: "Promise Kamanga"
+date: "1/23/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("pacman")
+p_load(knitr, xml2, rvest)
+```
+
+## Contents
+
+1. Introduce SelectorGadget 
+2. Talk about installation
+3. Highlight usage
+
+## What in the hell is SelectorGadget?
+
+- Forget about the definition. It is very technical!
+- But get excited about its usage.
+
+
+## Usage of SelectorGadget
+
+- Say you want to extract data from a web page
+- SelectorGadget is a Google Chrome Extension that allows for a user to easily extract CSS Selector nodes from HTML webpages
+- In R, the package **rvest** can then be utilized for secondary operations such as data cleaning
+
+
+## Installation
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot3.PNG')
+```
+
+## Usage: On Browser
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot5.PNG')
+```
+
+## Usage: On Browser
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot8.PNG')
+```
+
+## Usage: On Browser
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot6.PNG')
+```
+
+## Usage: On Browser
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot7.PNG')
+```
+
+## Usage: In R
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('shot2.PNG')
+```
+
+
+## Usage: In R
+```{r, include=TRUE}
+lego_url <- "https://www.orlandocitysc.com/players"
+html <- read_html(lego_url)
+lions <- html_nodes(html, ".age, .name_link")
+length(lions)
+
+lions[0]
+html_text(lions, trim = TRUE)  
+```
+
+
+
