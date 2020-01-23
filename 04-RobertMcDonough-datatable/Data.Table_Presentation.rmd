@@ -76,12 +76,15 @@ What the tidyverse does one operation at a time, data.table does with one concis
 
 </br>
 
-![Arun Srinivasan | THE #RDATATABLEPACKAGE](dt_pic2.png)
-
+```{r, out.width='100%', fig.align='center', fig.cap="Arun Srinivasan | THE #RDATATABLEPACKAGE  (2016)"}
+knitr::include_graphics('dt_pic2.png')
+```
 ---
 
 # The Big Idea
-![](dt_pic2.png)
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('dt_pic2.png')
+```
 </br>
 
 To manipulate a data.table, all you do is:
@@ -274,7 +277,9 @@ More comprehensive data.table resources:
 ---
 # data.table v. Tidyverse?
 --
-![why not both meme](whynotboth.jpg)
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('whynotboth.jpg')
+```
 ---
 # data.table v. Tidyverse?
 Since data.tables are still data.frames, just upgraded, all data.frame operations still work on them
