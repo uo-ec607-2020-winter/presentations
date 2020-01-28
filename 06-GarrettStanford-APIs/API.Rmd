@@ -128,4 +128,8 @@ Responses contain:
 2. Header (meta-info, bay-beee) 
 3. Body (actual content that was requested)
 
+## ...
+
+#417 Expectation Failed
+
 
