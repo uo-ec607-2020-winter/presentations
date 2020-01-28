@@ -19,7 +19,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | [SM Shihab Siddiqui](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/03-SMShihabSiddiqui-TidyData/Presentation.html) | 
 | 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | [Robert McDonough](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/04-RobertMcDonough-datatable/Data.Table_Presentation.html) | 
 |   | SelectorGadget | [a](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) | Promise Kamanga | 
-| 7 | APIs | [a](https://zapier.com/learn/apis/) | Garrett Stanford | 
+| 7 | APIs | [a](https://zapier.com/learn/apis/) | [Garrett Stanford](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/06-GarrettStanford-APIs/API.html) | 
 | 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | Colleen O'Brian | 
 | 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) | SM Shihab Siddiqui | 
 | 10 | rtweet | [a](https://rtweet.info/) | Brad | 
