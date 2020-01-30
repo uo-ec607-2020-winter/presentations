@@ -21,7 +21,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 |   | SelectorGadget | [a](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) | Promise Kamanga | 
 | 7 | APIs | [a](https://zapier.com/learn/apis/) | [Garrett Stanford](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/06-GarrettStanford-APIs/API.html) | 
 | 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | [Colleen O'Briant](https://raw.githack.com/uo-ec607-2020-winter/regexpresentation/master/regexPresenation.html#1) | 
-| 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) | SM Shihab Siddiqui | 
+| 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) | SM Shihab Siddiqui(https://raw.githack.com/uo-ec607-2020-winter/presentations/master/08-SMShihabSiddiqui-CRS/Presentation2.html) | 
 | 10 | rtweet | [a](https://rtweet.info/) | Brad | 
 | 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdahl | 
 | 12 |  |  |  |
