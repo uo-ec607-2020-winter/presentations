@@ -18,7 +18,7 @@ class: center, middle, inverse, title-slide
 ---
 
 
-# !! (Bang Bang)
+# Unquoting: !! (Bang Bang)
 
 
 
@@ -44,7 +44,7 @@ cement(Van, Anne, Shankha, George)
 
 ---
 
-# !! (Bang Bang)
+# Unquoting: !! (Bang Bang)
 
 
 ```r
@@ -276,11 +276,10 @@ map(syms(cols), summarise_avg, data = starwars)
 ## 1  97.3
 ```
 ---
-#Using quosures
+#Using quosures to capture expression and environment
 
 
 ```r
-#quosures capture the expression and the environment
 #quo() is used when making your own quosure outside a function
 quo(mass/height)
 ```
@@ -296,12 +295,16 @@ quo(mass/height)
 my_mutate = function(df, var){
   n = 10
   var = enexpr(var)
+  print(var)
   mutate(df, !!var)
 }
-
 df = tibble(x = 1)
 n = 100
 my_mutate(df, x+n)
+```
+
+```
+## x + n
 ```
 
 ```
@@ -317,12 +320,18 @@ my_mutate(df, x+n)
 my_mutate = function(df, var){
   n = 10
   var = enquo(var)
+  print(var)
   mutate(df, !!var)
 }
-
 df = tibble(x = 1)
 n = 100
 my_mutate(df, x+n)
+```
+
+```
+## &lt;quosure&gt;
+## expr: ^x + n
+## env:  global
 ```
 
 ```

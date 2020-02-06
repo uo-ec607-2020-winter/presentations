@@ -136,22 +136,20 @@ summarise_avg(starwars, mass)
 map(syms(cols), summarise_avg, data = starwars)
 ```
 ---
-#Using quosures
+#Using quosures to capture environment
 
 ```{r, echo = TRUE}
-#quosures capture the expression and the environment
 #quo() is used when making your own quosure outside a function
 quo(mass/height)
-
 ```
 --
 ```{r, echo=TRUE}
 my_mutate = function(df, var){
   n = 10
   var = enexpr(var)
+  print(var)
   mutate(df, !!var)
 }
-
 df = tibble(x = 1)
 n = 100
 my_mutate(df, x+n)
@@ -162,9 +160,9 @@ my_mutate(df, x+n)
 my_mutate = function(df, var){
   n = 10
   var = enquo(var)
+  print(var)
   mutate(df, !!var)
 }
-
 df = tibble(x = 1)
 n = 100
 my_mutate(df, x+n)
