@@ -1,0 +1,180 @@
+---
+title: "Tidyeval"
+author: "Ethan Holdahl"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts] 
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# !! (Bang Bang)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(pacman)
+p_load(tidyverse, dplyr, rlang)
+```
+
+```{r, echo = TRUE}
+cement = function(...){
+  vars = ensyms(...)
+  vars = map(vars, as.character)
+  paste(vars, collapse = " ")
+}
+
+#What do you expect the function to do?
+```
+--
+```{r, echo = TRUE}
+cement(Van, Anne, Shankha, George)
+```
+
+
+---
+
+# !! (Bang Bang)
+
+```{r, echo = TRUE}
+muggle = "David"
+
+#What happens when we run cement(George, muggle)?
+```
+--
+```{r, echo = TRUE}
+cement(George, muggle)
+
+#We use the Bang Bang operator to access the content of the variable
+```
+--
+```{r, echo = TRUE}
+cement(George, !!muggle)
+```
+
+```{r, echo = TRUE}
+#We use rlang::qq_show() to see what your !! operators are doing
+rlang::qq_show(cement(George, !!muggle))
+```
+
+
+---
+
+# Using !!
+
+```{r, echo = TRUE}
+head(starwars)
+```
+--
+```{r, echo = TRUE}
+starwars %>%
+  summarise(avg = mean(height, na.rm = TRUE))
+```
+---
+#Using !!
+```{r, echo=TRUE}
+cols = c("height", "mass")
+col = cols[[1]]
+```
+--
+```{r, echo=TRUE}
+rlang::qq_show(starwars %>%
+  summarise(avg = mean(!!col, na.rm = TRUE)))
+```
+--
+```{r, echo=TRUE}
+starwars %>%
+  summarise(avg = mean(!!col, na.rm = TRUE))
+```
+---
+#Using !!: We need symbols!
+```{r, echo = TRUE}
+col = sym(cols[[1]])
+```
+--
+```{r, echo=TRUE}
+rlang::qq_show(starwars %>%
+  summarise(avg = mean(!!col, na.rm = TRUE)))
+```
+--
+```{r, echo=TRUE}
+starwars %>%
+  summarise(avg = mean(!!col, na.rm = TRUE))
+```
+---
+# Tirpple Bang !!! (splyce)
+
+```{r, echo = TRUE}
+#Triple Bang (splycing) is used for lists of quoted arguments
+starwars %>%
+  select(!!!cols)
+```
+--
+```{r, echo=TRUE}
+rlang::qq_show(starwars %>%
+  select(!!!cols))
+```
+---
+#Using quoting in functions: enquo()
+
+```{r, echo = TRUE}
+summarise_avg = function(data, col){
+  col = enquo(col)
+  data %>%
+    summarise(avg = mean(!!col, na.rm = TRUE))
+}
+```
+--
+```{r, echo = TRUE}
+summarise_avg(starwars, height)
+summarise_avg(starwars, mass)
+```
+---
+#Mapping
+```{r, echo=TRUE}
+map(syms(cols), summarise_avg, data = starwars)
+```
+---
+#Using quosures
+
+```{r, echo = TRUE}
+#quosures capture the expression and the environment
+#quo() is used when making your own quosure outside a function
+quo(mass/height)
+```
+--
+```{r, echo=TRUE}
+my_mutate = function(df, var){
+  n = 10
+  var = enexpr(var)
+  mutate(df, !!var)
+}
+
+df = tibble(x = 1)
+n = 100
+my_mutate(df, x+n)
+```
+---
+#Changing the environment by using enquo()
+```{r, echo=TRUE}
+my_mutate = function(df, var){
+  n = 10
+  var = enquo(var)
+  mutate(df, !!var)
+}
+
+df = tibble(x = 1)
+n = 100
+my_mutate(df, x+n)
+```
+---
+
+# Hadley Wickham explaining Tidyeval
+Probably much better that I just did. (spoilers: I used one of his examples)
+[Video](https://www.youtube.com/watch?v=nERXS3ssntw)
+
+---
+#Hour long webinar
+(More spoilers: I used a couple more of his examples)
+[Longer Video](https://resources.rstudio.com/webinars/tidyeval)
