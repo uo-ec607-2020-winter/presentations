@@ -160,7 +160,6 @@ my_mutate(df, x+n)
 my_mutate = function(df, var){
   n = 10
   var = enquo(var)
-  print(var)
   mutate(df, !!var)
 }
 df = tibble(x = 1)
