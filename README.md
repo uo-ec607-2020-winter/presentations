@@ -27,10 +27,10 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 12 |  |  |  |
 | 13 | conda |  | James |  
 |    | reticulate |  | Chris | 
-| 14 | Shiny |  | Ethan Holdahl |
+| 14 | tsibble and/or fable |  | Kevin Song |
+|    | prophet |  | Promise Kamanga | 
+| 15 | Shiny |  | Ethan Holdahl | 
 |    | Writing an R package |  | Robert McDonough | 
-| 15 | tsibble and/or fable |  | Kevin Song | 
-|    | prophet |  | promise | 
 | 16 |geocode  |  | Garrett Stanford | 
 |    | julia |  | Pramod | 
 | 17 |  tidytext |  | Colleen O'Briant | 
