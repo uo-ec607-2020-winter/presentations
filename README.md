@@ -34,7 +34,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 16 |geocode  |  | Garrett Stanford | 
 |    |  |  |  | 
 | 17 |  tidytext |  | Colleen O'Briant | 
-|    |  |  |  | 
+|    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
 |    |  |  |  | 
 | 19 | Big data | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg | 
@@ -50,9 +50,7 @@ Don't feel limited to these, but here are some suggestions for the open topic sl
 - [Rcpp](http://dirk.eddelbuettel.com/code/rcpp.html) (Note: You may want to start with a gentler introduction like [this](https://csgillespie.github.io/efficientR/performance.html#rcpp) or [this](https://adv-r.hadley.nz/rcpp.html))
 
 #### Communication
-- [blogdown](https://bookdown.org/yihui/blogdown/)
-- [Shiny](https://shiny.rstudio.com/)
-
+- [Shiny](https://shiny.rstudio.com
 #### Bayesian
 - [greta](https://greta-stats.org/)
 - [rstan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) or derivatives ([brms](https://paul-buerkner.github.io/brms/), [rstanarm](http://mc-stan.org/rstanarm/), etc.)
