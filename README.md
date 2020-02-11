@@ -30,7 +30,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 15 |  |  |  | 
 | 16 |  |  |  | 
 | 17 |  |  |  | 
-| 18 |  |  |  | 
+| 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
 | 19 | Big data  | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg  | 
 | 20 |  |  |  | 
 
