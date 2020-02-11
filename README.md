@@ -25,22 +25,22 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 10 | rtweet | [a](https://rtweet.info/) | [Brad Bailey](https://github.com/uo-ec607-2020-winter/presentations/blob/master/09-BradBailey-rtweet/08-BradBailey-rtweet.pdf)| 
 | 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/10-EthanHoldahl-Tidyeval/Tidyeval.html)| 
 | 12 |  |  |  |
-| 13 |  |  |  |  
-|    |  |  |  | 
+| 13 | conda |  | James |  
+|    | reticulate |  | Chris | 
 | 14 | Shiny |  | Ethan Holdahl |
-|    |  |  |  | 
-| 15 | tsibble and/or fable |  | Kevin Song | 
 |    | Writing an R package |  | Robert McDonough | 
+| 15 | tsibble and/or fable |  | Kevin Song | 
+|    | prophet |  | promise | 
 | 16 |geocode  |  | Garrett Stanford | 
-|    |  |  |  | 
+|    | julia |  | Pramod | 
 | 17 |  tidytext |  | Colleen O'Briant | 
 |    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
-|    |  |  |  | 
+|    | bayesian |  | shan | 
 | 19 | Big data | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg | 
 |    | Cross-validation |  | Jake Schefrin | 
 | 20 | drake |  | Pramod Dudhe | 
-|    |  |  |  | 
+|    | rcpp |  | James | 
 
 ### Open topic and package suggestions
 
