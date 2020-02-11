@@ -27,7 +27,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 12 |  |  |  |
 | 13 |  |  |  |  
 | 14 | Shiny |  | Ethan Holdahl |
-| 15 | tsiblle |  | Kevin Song | 
+| 15 | tsibble and/or fable |  | Kevin Song | 
 | 16 |geocode  |  | Garrett Stanford | 
 | 17 |  tidytext |  | Colleen O'Briant | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
