@@ -27,7 +27,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 12 |  |  |  |
 | 13 | conda |  | James |  
 |    | reticulate |  | Chris | 
-| 14 | tsibble and/or fable |  | Kevin Song |
+| 14 | tsibble and/or fable | [a](https://tsibble.tidyverts.org), [b](https://fable.tidyverts.org) | Kevin Song |
 |    | prophet |  | Promise Kamanga | 
 | 15 | Shiny |  | Ethan Holdahl | 
 |    | Writing an R package |  | Robert McDonough | 
