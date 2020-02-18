@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Conda and Jupyter Notes - Putting the Environment in Environmental ECON</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="James Holste" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Conda and Jupyter Notes - Putting the Environment in Environmental ECON
+### James Holste
+### 2/17/2020
+
+---
+
+
+
+
+# Table of Contents
+1. [Conda] (#conda)
+2. [Anaconda Navigator] (#navigator)
+3. [Jupyter Notebook] (#jupyter)
+  
+
+---
+name: conda
+
+## Conda
+
+- Conda is an open source package and environment management system
+- Enables you to quickly run, update, and install packages
+- Designed for Python but can package and distribute for  a host of other languages
+
+### Requirements
+
+- Requires you to download Anaconda and Python (links in the Resources slide) 
+---
+## Managing Environments
+
+1. Creating a new environment and install a package in it
+Name the environment ***example*** and install BioPython package
+```{}
+conda create --name example biopython
+```
+Conda check for package dependencies and will prompt you to proceed
+```{}
+Proceed ([y]/n)? y
+```
+2. Activate New Environment
+```{}
+conda activate example
+```
+---
+3. List Environments
+```{}
+conda info --envs
+```
+```{}
+conda environments:
+
+    base           /home/username/Anaconda3
+    example   * /home/username/Anaconda3/envs/example
+```
+Note: * indicates the active environment
+You can switch to another environment using the activate command again.
+---
+## Managing Packages
+1.Activate an environment (see Manage Environments slide)
+2.Check to see if a Package "beautifulsoup" exists in your Anaconda repository (requires internet access)
+```{}
+conda search beautifulsoup
+```
+3.Install the Package
+```{}
+conda install beautifulsoup
+```
+4.List available packages
+```{}
+conda list
+```
+---
+5.Update a Package
+```{}
+conda update beautifulsoup
+```
+6.Remove a Package from Environment ***example***
+```{}
+conda remove -n example beautifulsoup
+```
+---
+
+## Update your packages with conda update
+
+Or update all of them with r-caret
+
+```{}
+conda update r-caret
+```
+
+## Create a New Environment 
+
+```{}
+conda create -n r-environment r-essentials r-base
+conda activate r-environment
+```
+---
+name: navigator
+
+# Anaconda Navigator
+
+Anaconda Navigator is a GUI included in Anaconda Distributio (its already downloaded) that enables easy access to applications and management of packages, environments, and channels.
+![](nav-defaults1.png)
+---
+One of the key features of Anaconda Navigator is that it is able to organize multiple environments, which can run multiple languages of a variety of versions.
+For instance I can create an environment which can hold both Python 3.7 scripts and R scripts. 
+
+```r
+knitr::include_graphics("./nav-envs.png")
+```
+
+&lt;img src="./nav-envs.png" width="700px" height="350px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Jupyter Notebook
+
+### What is it?
+
+Jupyter Notebook allows you to create and share live documents that contain code, visualizations, equations, and narrative text. Think like google drive but with the ability to share live coded documents
+ 
+
+### Downloading
+
+You can use the Conda package in Anaconda Prompt to download
+```{}
+conda install -c conda-forge notebook
+```
+---
+## Using R in Jupiter Notebook
+
+1. Open Anaconda Navigator (it was installed with Anaconda)
+2. Install R language and r-essential packages by selecting ***Environments*** and then ***Create***. Make sure both the ***Python*** and ***R*** boxes are selected and then select ***r*** from the drop down menu.
+
+```r
+knitr::include_graphics("./rJupyterStep2.png")
+```
+
+&lt;img src="./rJupyterStep2.png" width="500px" height="250px" style="display: block; margin: auto;" /&gt;
+---
+![](rJupyterStep2-1.png)
+---
+3. Now open the newly created environment with Jupyter Notebook.
+![](rJupyterStep3.png)
+---
+4. Then create a new R notebook by selecting ***R*** in the ***New** drop down menu.
+![](rJupyterStep4.png)
+5. This new file can run code similar to an R script but now contained in this new environment
+
+---
+
+## Using Jupyter
+
+Two major terms:
+
+- Kernel: computational engine that executes code in the journal (Such as Python, C++, R, etc.)
+- Cell: a container of text or code to be executed
+
+In a sense a notebook file is akin to a script file
+
+---
+## Using a Notebook-Check Points
+
+Everytime you save your document a new checkpoint file is created
+
+This checkpoint will be located within a hidden subdirectory: ***.ipynb_checkpoints***
+
+Hence you can restore back to a previously saved version in case of an incident (note: Jupyter Note autosaves every 120 seconds)
+---
+# Sharing and Exporting
+
+### Preping the Notebook
+
+1. Click "Cell&gt;All Output&gt;Clear" (Clears Output)
+2. Click "Kernal&gt;Restart &amp; Run All" (Reruns Notebook)
+3. Check that all cells execute
+
+- These steps are not required but are best practice to ensure there exists no intermediate output or have a stale state.
+
+### Exporting to Github using Gists
+
+1. Sign in and browse to gist.github.com.
+2. Open your .ipynb file in a text editor, select all and copy the JSON inside.
+3. Paste the notebook JSON into the gist.
+4. Give your Gist a filename (remember to add .iypnb or this will not work)
+5. Click either “Create secret gist” or “Create public gist.”
+
+---
+# Other Important Features
+
+### Magics
+
+These are commands built into the IPython kernel to enable particular tasks
+- Line Magics(%): applies to a single line
+- Cell Magics(%%): applies to a whole cell
+- Shell Magics(!): Magics in the Command Shell
+
+### Executing Other Languages
+
+In the IPython Kernel you can execute single cells in other programming languages such as html or Latex
+---
+### Executing External Code
+
+Jupyter allows you to import and run external scripts for larger projects
+- %load: Loads external script
+- %run: Runs said script
+
+### Other Goodies
+
+- Connect to databases
+- Style your notebook
+- Macros
+- Logging Configuration
+---
+# Resources
+
+- Download Python:https://www.python.org/downloads/
+- Download Anaconda:https://www.anaconda.com/distribution/
+- Conda User Guide: https://conda.io/projects/conda/en/latest/user-guide/index.html 
+- Anaconda Navigator Tutorial: https://docs.anaconda.com/anaconda/navigator/
+- Jupyter Notebook Tutorial:https://www.dataquest.io/blog/jupyter-notebook-tutorial/
+- Jupyter Notebook Advanced: https://www.dataquest.io/blog/advanced-jupyter-notebooks-tutorial/
+- R in Jupyter Notebook:https://docs.anaconda.com/anaconda/navigator/tutorials/r-lang/
+- IPython Magics: https://ipython.readthedocs.io/en/stable/interactive/magics.html
+- Anaconda, Boa, and Python Comparison:https://sciencing.com/differences-between-boa-python-anaconda-8351539.html
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
