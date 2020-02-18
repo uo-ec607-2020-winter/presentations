@@ -1,0 +1,66 @@
+---
+title: "Prophet"
+author: "Promise"
+date: "2/20/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Contents
+
+1. Introduction 
+2. Why Use Prophet
+3. Prophet in Use
+
+## Introduction
+- Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with yearly, weekly, and daily seasonality, plus holiday effects.
+
+- It works best with time series that have strong seasonal effects and several seasons of historical data.
+
+- Prophet is robust to missing data and shifts in the trend, and typically handles outliers well.
+
+## Why Use Prophet {.build}
+### 1. Accurate and fast
+  -used to produce reliable forecasts for planning and goal setting in many applications across Facebook  
+  
+  -It performs better than any other approach in the majority of cases.
+
+### 2. Fully automatic
+  -Prophet provides reasonable forecast on messy data with no manual effort.  
+  
+  -it is robust to outliers, missing data, and dramatic changes in your time series.
+  
+
+## Why Use Prophet {.build}
+### 3. Tunable tables
+  -procedure includes many possibilities for users to tweak and adjust forecasts.
+  
+  -you can use human-interpretable parameters to improve your forecast by adding your domain knowledge.
+  
+### 4. Available in R and Python
+  -with our R knowledge, we should find Prophet easy to work with
+  
+## Prophet in R
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s1.PNG')
+knitr::include_graphics('s2.PNG')
+```
+
+## Prophet in R
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s3.PNG')
+knitr::include_graphics('s4.PNG')
+```
+
+## Prophet in R
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s5.PNG')
+```
+
+## Sources
+- https://facebook.github.io/prophet/docs/installation.html
+
+- https://facebook.github.io/prophet/docs/quick_start.html#r-api
