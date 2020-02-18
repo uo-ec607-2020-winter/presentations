@@ -26,9 +26,9 @@ library(tidyverse)
 ```
 
 # Table of Contents
-1. [Conda] (#conda)
-2. [Anaconda Navigator] (#navigator)
-3. [Jupyter Notebook] (#jupyter)
+1. [Conda](#conda)
+2. [Anaconda Navigator](#navigator)
+3. [Jupyter Notebook](#jupyter)
   
 
 ---
@@ -128,7 +128,7 @@ knitr::include_graphics("./nav-envs.png")
 ```
 
 ---
-
+name: jupyter
 # Jupyter Notebook
 
 ### What is it?

@@ -22,9 +22,9 @@ class: center, middle, inverse, title-slide
 
 
 # Table of Contents
-1. [Conda] (#conda)
-2. [Anaconda Navigator] (#navigator)
-3. [Jupyter Notebook] (#jupyter)
+1. [Conda](#conda)
+2. [Anaconda Navigator](#navigator)
+3. [Jupyter Notebook](#jupyter)
   
 
 ---
@@ -42,7 +42,7 @@ name: conda
 ---
 ## Managing Environments
 
-1. Creating a new environment and install a package in it
+1.Creating a new environment and install a package in it
 Name the environment ***example*** and install BioPython package
 ```{}
 conda create --name example biopython
@@ -51,12 +51,12 @@ Conda check for package dependencies and will prompt you to proceed
 ```{}
 Proceed ([y]/n)? y
 ```
-2. Activate New Environment
+2.Activate New Environment
 ```{}
 conda activate example
 ```
 ---
-3. List Environments
+3.List Environments
 ```{}
 conda info --envs
 ```
@@ -71,6 +71,7 @@ You can switch to another environment using the activate command again.
 ---
 ## Managing Packages
 1.Activate an environment (see Manage Environments slide)
+
 2.Check to see if a Package "beautifulsoup" exists in your Anaconda repository (requires internet access)
 ```{}
 conda search beautifulsoup
@@ -126,7 +127,7 @@ knitr::include_graphics("./nav-envs.png")
 &lt;img src="./nav-envs.png" width="700px" height="350px" style="display: block; margin: auto;" /&gt;
 
 ---
-
+name: jupyter
 # Jupyter Notebook
 
 ### What is it?
@@ -143,8 +144,8 @@ conda install -c conda-forge notebook
 ---
 ## Using R in Jupiter Notebook
 
-1. Open Anaconda Navigator (it was installed with Anaconda)
-2. Install R language and r-essential packages by selecting ***Environments*** and then ***Create***. Make sure both the ***Python*** and ***R*** boxes are selected and then select ***r*** from the drop down menu.
+1.Open Anaconda Navigator (it was installed with Anaconda)
+2.Install R language and r-essential packages by selecting ***Environments*** and then ***Create***. Make sure both the ***Python*** and ***R*** boxes are selected and then select ***r*** from the drop down menu.
 
 ```r
 knitr::include_graphics("./rJupyterStep2.png")
@@ -154,12 +155,12 @@ knitr::include_graphics("./rJupyterStep2.png")
 ---
 ![](rJupyterStep2-1.png)
 ---
-3. Now open the newly created environment with Jupyter Notebook.
+3.Now open the newly created environment with Jupyter Notebook.
 ![](rJupyterStep3.png)
 ---
-4. Then create a new R notebook by selecting ***R*** in the ***New** drop down menu.
+4.Then create a new R notebook by selecting ***R*** in the ***New** drop down menu.
 ![](rJupyterStep4.png)
-5. This new file can run code similar to an R script but now contained in this new environment
+5.This new file can run code similar to an R script but now contained in this new environment
 
 ---
 
