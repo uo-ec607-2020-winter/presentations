@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>data.table: A Complement to the Tidyverse</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Robert McDonough" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# data.table: A Complement to the Tidyverse
+## <html>
+<div style="float:left">
+
+</div>
+<hr color='#EB811B' size=1px width=796px>
+</html>
+### Robert McDonough
+### 1/23/2020
+
+---
+
+
+
+
+# What is data.table?
+
+Data.table is a package centered around the data.table object. 
+
+- data.tables are data.frames upgraded with extra functionality to make data wrangling a breeze.
+
+--
+Compared to using data.frames, working with data in data.tables is:
+
+ - Concise
+  
+ - Fast
+ 
+ - Consistent
+---
+# The Verbosity of the Tidyverse
+
+When using the Tidyverse to organize or manipulate a dataset, one has to go step-by-step. 
+--
+
+&lt;/br&gt;
+
+Ex: Recall the starwars dataset from our last lecture. 
+
+--
+
+- We might ask: what is the average height of humans on each homeworld, by gender?
+--
+- Using the tidyverse, we have to break that question into a few steps
+--
+
+```r
+starwars %&gt;% 
+  filter(species=="Human") %&gt;% 
+  group_by(homeworld, gender) %&gt;% 
+  summarise(mean_height=mean(height, na.rm=T)) %&gt;% head(4)
+```
+
+```
+## # A tibble: 4 x 3
+## # Groups:   homeworld [3]
+##   homeworld  gender mean_height
+##   &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
+## 1 Alderaan   female        150 
+## 2 Alderaan   male          190.
+## 3 Bespin     male          175 
+## 4 Bestine IV male          180
+```
+
+---
+# Wrangling a data.table
+What the tidyverse does one operation at a time, data.table does with one concise expression.
+
+- Even better, that expression (almost) always fits into the same structure.
+
+--
+
+&lt;/br&gt;
+
+&lt;img src="picture_1.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+---
+
+# The Big Idea
+&lt;img src="picture_1.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+&lt;/br&gt;
+
+To manipulate a data.table, all you do is:
+--
+1. Tell R the data.table's name
+--
+2. Tell R the end product that you want to see. 
+&lt;/br&gt;
+
+--
+
+With data.tables we we can frequently write out command as a single, fluid thought.
+---
+
+# A Quick Example
+
+Let's take our starwars question:
+&gt;what is the average height of humans on each homeworld, by gender?
+--
+
+With data.table
+
+```r
+starwars_dt=as.data.table(starwars)
+
+starwars_dt[species=="Human", mean(height, na.rm=T), by=.(homeworld, gender)]
+```
+
+```
+##        homeworld gender       V1
+##  1:     Tatooine   male 184.3333
+##  2:     Alderaan female 150.0000
+##  3:     Tatooine female 164.0000
+##  4:      Stewjon   male 182.0000
+##  5:       Eriadu   male 180.0000
+##  6:     Corellia   male 175.0000
+##  [ reached getOption("max.print") -- omitted 16 rows ]
+```
+
+--
+
+&lt;/br&gt;
+
+using data.tables, most types of data wrangling can be done within this simple framework.
+---
+# DT[i,]- Filtering
+
+data.table's filter works much like dplyr's: 
+
+
+&lt;/br&gt;
+
+--
+- `data_table[var1=="string",]`: Grab all the rows where var1="string"
+
+--
+- `data_table[var2 &gt; 5,]`: Grab all rows where var2 is greater than 5
+
+--
+- `data_table[1:10,]`: Grab the first 10 rows
+--
+
+data.table can handle multiple filters at once, too:
+
+`data_table[var1=="string" &amp; var2&gt;5,]`: Grab all rows where var1="string" and var2 is a number greater than 5
+&lt;/br&gt;
+
+--
+One Difference: &lt;/br&gt;
+--
+Since we start off by telling R what data.table to look at, we can call variables without using `$`
+---
+# DT[,j]- Manipulating
+
+With dplyr, we need to use different verbs to do manipulate our variables in different ways:
+
+- `select()`
+- `mutate()`
+- `summarise()`
+- `count()`
+
+--
+
+&lt;/br&gt;
+
+data.table recognizes that all of these verbs are just different versions of telling R: 
+&gt;'*do something to this variable in my dataset*'
+--
+
+data.table let's you do all of those operations in one place: the `j` argument.
+
+---
+# DT[,j]- Making Changes to Data
+To add, delete, or change a column in a dataframe, we use the syntax `:=`  
+&lt;/br&gt;
+--
+To add a new column:
+
+```r
+DT[,newvariable:=variable1+500]
+```
+--
+To change an existing column:
+
+```r
+DT[,newvariable:=as.numeric(newvariable)]
+```
+--
+To make multiple changes at once:
+
+```r
+DT[,':='(p_values_correct=p_values*.01, p_values= NULL)]
+```
+
+---
+# DT[,j]- Extracting Columns
+We can extract columns from our data using `j` too. 
+--
+
+By column index:
+
+```r
+starwars_dt[,c(1)]
+```
+
+```
+##                      name
+##  1:        Luke Skywalker
+##  [ reached getOption("max.print") -- omitted 87 rows ]
+```
+
+--
+Or by name:
+--
+
+```r
+starwars_dt[,.(name, homeworld)]
+```
+
+```
+##                      name      homeworld
+##  1:        Luke Skywalker       Tatooine
+##  [ reached getOption("max.print") -- omitted 87 rows ]
+```
+
+
+--
+What's with the `.()`?
+
+- It's just data.frame's codeword for a list. 
+---
+# DT[,j]- Summarizing
+
+Finally, we can do summary manipulations in `j`
+
+```r
+mean_height=starwars_dt[,mean(height, na.rm=T)]
+mean_height
+```
+
+```
+## [1] 174.358
+```
+
+--
+
+Without the `:=` syntax, we don't keep anything unless we specify it. 
+---
+# DT[, ,by]- Grouping by
+
+The third argument of the data.table command lets us group by, just as with `group_by`.
+
+
+--
+We can group by a single variable:
+--
+
+
+```r
+mean_height_species=starwars_dt[,.(species_mean_height=mean(height, na.rm=T)),by=species]
+mean_height_species
+```
+
+```
+##            species species_mean_height
+##  1:          Human            176.6452
+##  2:          Droid            140.0000
+##  [ reached getOption("max.print") -- omitted 37 rows ]
+```
+
+--
+Or, as we saw in our first example, we can group by multiple variables using `.()`
+
+---
+# data.table's big value added: Speed
+
+Everything I've done above can be done equally well in dplyr, or even base R, but where data.table gets ahead is in how fast your code will run. 
+
+--
+
+Since we tell data.table the end product that we want all at once, up front, R has much more freedom to optimize how it gives you that end product. 
+
+--
+
+- In dplyr, R has to do each intermediate step in exactly the order we tell it to. 
+--
+- For big datasets, the time difference can be massive 
+--
+
+data.table brings that speed to reading and writing documents too:
+
+- `fread()`
+- `fwrite()`
+
+---
+# Just the Tip of the Iceberg
+
+Data.table has much more functionality than what I've shown off here:
+
+- binds
+- joins
+- reshaping
+
+--
+
+More comprehensive data.table resources:
+
+- http://rdatatable.gitlab.io/data.table/index.html
+- https://cran.r-project.org/web/packages/data.table/data.table.pdf
+- https://cloud.r-project.org/web/packages/data.table/vignettes/datatable-intro.html
+---
+# data.table v. Tidyverse?
+--
+&lt;img src="whynotboth.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+---
+# data.table v. Tidyverse?
+Since data.tables are still data.frames, just upgraded, all data.frame operations still work on them
+--
+- This includes the tidyverse!
+
+--
+Also, there's dtplyr
+--
+- dtplyr is a package that modifies many of the functions in dplyr to use data.table code in the background
+--
+
+- Get the speed of data.table where you need it, with less of a shock to your coding habits.
+
+--
+Available as part of the tidyverse
+- https://dtplyr.tidyverse.org/
+---
+# Installing data.table and dtplyr
+
+- `install.packages("data.table")` &lt;/br&gt;
+  `library(data.table)   `
+
+- `install.packages("dtplyr") `&lt;/br&gt;
+  `library(dtplyr)`
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

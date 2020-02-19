@@ -13,26 +13,34 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | Lecture | Topic | Resources | Presenter |
 |---------|-------|-----------|-----------|
 | 1 | None | NA | NA | 
-| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | Kevin Song | 
-| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) |  |
+| 2 | R Markdown | [a](https://rmarkdown.rstudio.com/), [b](https://bookdown.org/yihui/rmarkdown/) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/01-KevinSong-RMarkdown/rmarkdown-intro.html#1) | 
+| 3 | GitKraken (or other GUI) | [a](https://www.gitkraken.com/), [b](https://www.sourcetreeapp.com/), [c](https://desktop.github.com/), [d](https://github.atom.io/), [e](https://code.visualstudio.com/docs/introvideos/versioncontrol) | [Shan Zhang](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/02-ShanZhang-Gitkraken/Gitkraken.html#1)|
 | 4 |  |  |  |
-| 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | SM Shihab Siddiqui | 
-| 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | Robert McDonough | 
-|   | SelectorGadget | [a](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) | Promise Kamanga | 
-| 7 | APIs | [a](https://zapier.com/learn/apis/) | Garrett Stanford | 
-| 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | Colleen O'Brian | 
-| 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) |  | 
-| 10 |  |  |  | 
-| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | Ethan Holdall | 
+| 5 | Tidy data | [a](https://vita.had.co.nz/papers/tidy-data.pdf)  | [SM Shihab Siddiqui](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/03-SMShihabSiddiqui-TidyData/Presentation.html) | 
+| 6 | data.table | [a](http://rdatatable.gitlab.io/data.table/index.html), [b](https://dtplyr.tidyverse.org/), [c](https://atrebas.github.io/post/2019-03-03-datatable-dplyr/) | [Robert McDonough](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/04-RobertMcDonough-datatable/Data.Table_Presentation.html) | 
+|   | SelectorGadget | [a](https://cran.r-project.org/web/packages/rvest/vignettes/selectorgadget.html) | [Promise Kamanga](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/05-PromiseKamanga-SelectorGadget/SelectorGadget_Slides.html) | 
+| 7 | APIs | [a](https://zapier.com/learn/apis/) | [Garrett Stanford](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/06-GarrettStanford-APIs/API.html) | 
+| 8 | Regular expressions | [a](http://stat545.com/block022_regular-expression.html), [b](https://www.garrickadenbuie.com/project/regexplain/), [c](https://www.rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf) | [Colleen O'Briant](https://raw.githack.com/uo-ec607-2020-winter/regexpresentation/master/regexPresenation.html#1) | 
+| 9 | CRS | [a](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro), [b](https://www.nceas.ucsb.edu/~frazier/RSpatialGuides/OverviewCoordinateReferenceSystems.pdf) | [SM Shihab Siddiqui](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/08-SMShihabSiddiqui-CRS/Presentation2.html) | 
+| 10 | rtweet | [a](https://rtweet.info/) | [Brad Bailey](https://github.com/uo-ec607-2020-winter/presentations/blob/master/09-BradBailey-rtweet/08-BradBailey-rtweet.pdf)| 
+| 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/10-EthanHoldahl-Tidyeval/Tidyeval.html)| 
 | 12 |  |  |  |
-| 13 |  |  |  |  
-| 14 |  |  |  |
-| 15 |  |  |  | 
-| 16 |  |  |  | 
-| 17 |  |  |  | 
-| 18 |  |  |  | 
-| 19 | Big data  | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg  | 
-| 20 |  |  |  | 
+| 13 | conda |  | [James](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/11-James-Conda-Jupyter/conda_jupyter.html) |  
+|    | reticulate |  | Chris | 
+| 14 | tsibble and/or fable | [a](https://tsibble.tidyverts.org), [b](https://fable.tidyverts.org) | Kevin Song |
+|    | prophet |  | Promise Kamanga | 
+| 15 | Shiny |  | Ethan Holdahl | 
+|    | Writing an R package |  | Robert McDonough | 
+| 16 |geocode  |  | Garrett Stanford | 
+|    | julia |  | Pramod | 
+| 17 |  tidytext |  | Colleen O'Briant | 
+|    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
+| 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
+|    | bayesian |  | shan | 
+| 19 | Big data | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg | 
+|    | Cross-validation |  | Jake Schefrin | 
+| 20 | drake |  | Pramod Dudhe | 
+|    | rcpp |  | James | 
 
 ### Open topic and package suggestions
 
@@ -42,9 +50,7 @@ Don't feel limited to these, but here are some suggestions for the open topic sl
 - [Rcpp](http://dirk.eddelbuettel.com/code/rcpp.html) (Note: You may want to start with a gentler introduction like [this](https://csgillespie.github.io/efficientR/performance.html#rcpp) or [this](https://adv-r.hadley.nz/rcpp.html))
 
 #### Communication
-- [blogdown](https://bookdown.org/yihui/blogdown/)
-- [Shiny](https://shiny.rstudio.com/)
-
+- [Shiny](https://shiny.rstudio.com
 #### Bayesian
 - [greta](https://greta-stats.org/)
 - [rstan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started) or derivatives ([brms](https://paul-buerkner.github.io/brms/), [rstanarm](http://mc-stan.org/rstanarm/), etc.)
@@ -63,7 +69,7 @@ Don't feel limited to these, but here are some suggestions for the open topic sl
 
 #### Social and networks
 - [ggraph](https://ggraph.data-imaginist.com/) and [tidygraph](https://tidygraph.data-imaginist.com/)
-- [rtweet](https://rtweet.info/)
+
 - [wikipediatrend](https://github.com/petermeissner/wikipediatrend/)
 
 #### Text / NLP
