@@ -43,10 +43,10 @@ knitr::include_graphics('s6.PNG')
   
   -you can use human-interpretable parameters to improve your forecast by adding your domain knowledge.
   
-### 4. Available in R and Python
+### 4. Available in R and Python 
   -with our R knowledge, we should find Prophet easy to work with
   
-## Prophet in R
+## Prophet in R {.build}
 ```{r, out.width='100%', fig.align='center'}
 knitr::include_graphics('s1.PNG')
 ```
@@ -57,7 +57,7 @@ knitr::include_graphics('s1.PNG')
 knitr::include_graphics('s7.PNG')
 ```
 
-## Prophet in R
+## Prophet in R {.build}
 ```{r, out.width='100%', fig.align='center'}
 knitr::include_graphics('s3.PNG')
 knitr::include_graphics('s4.PNG')
