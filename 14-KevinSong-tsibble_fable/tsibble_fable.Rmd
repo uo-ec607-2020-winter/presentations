@@ -35,7 +35,7 @@ class: inverse, middle, left
 
 ```{r libs, message=FALSE, warning=FALSE, cache=F, include=FALSE}
 library(pacman)
-p_load(tsibble, fable, dplyr, nycflights13)
+p_load(knit, tsibble, fable, dplyr, nycflights13)
 
 ```
 
@@ -45,57 +45,83 @@ p_load(tsibble, fable, dplyr, nycflights13)
 install.packages("tsibble")
 ```
 
-> **tsibble** package provides a data infrastructure for tidy temporal data with wrangling tools adapting tidy data principles.
+> The **`tsibble`** package extends the tidyverse to temporal data. 
 
-<p>&nbsp;</p>
+- Built on top of the tibble, **`tsibble`** is a data- and model-oriented object.
 
-- tsibble is a data- and model-oriented object. 
+- Comparison to R-based time series objects (`ts`, `zoo` and `xts`)
 
-- In tsibble:
-
-  1. **Key** is a set of variables that define observational units over time.
-
-  2. **Index** is a variable with inherent ordering from past to present.
-
-  3. Each observation should be uniquely identified by **key** and **index**.
-
-  4. Each observational unit should be measured at a common **interval**, if regularly spaced.
+  - **`tsibble`** preserves time indices as the essential data column and makes heterogeneous data structures possible. 
+  
+  - Beyond the tibble-like representation, **key** is introduced to uniquely identify observational units over time (index). 
+  
+  - The tsibble package aims at managing temporal data and getting analysis done in a fluent workflow.
 
 ---
 
-# Coerce to a tsibble - as_tsibble()
+## Basic Structure
 
 > To coerce data frame to tsibble, we need to declare **key** and **index**. 
 
-- The **key** can be comprised of empty, one, or more variables. 
-  - For multiple variables, declare `key = c(x1, x2, x3)`. 
-  - can be created in conjunction with tidy selectors like `starts_with()`
-  
-- The **Index** supports an extensive range of indices 
-    - native time classes in R (Date, POSIXct and difftime)
-    - tsibble's new additions (yearweek, yearmonth, and yearquarter)
+<p>&nbsp;</p>
 
-- The **Interval** is computed from index based on the representation.
+- **`tsibble()`** creates a _tsibble object_ and **`as_tsibble()`** is an S3 method to coerce other objects to a tsibble. 
 
-|Inverval |Class|
-|---------|-----|
-|Annual   | interger/double |
-|Quarterly| yearquarter |
-|Monthly  | yearmonth |
-|Weekly   | yearweek |
-|Daily (Subdaily) | Date / difftime ( POSIXt / difftime / hms )|
+- Vector/Matrix objects can be automated to a tsibble using **`as_tsibble()`** without any specification. 
+
+- For a tibble or data frame, **`as_tsibble()`** requires to declare the **key** and **index** variables.
 
 ---
 
-# Ex) nycflights13::weather
+## Basic Structure
 
-- `time_hour` containing the date-times should be declared as **index**
+> To coerce data frame to tsibble, we need to declare **key** and **index**. 
 
-- `origin` should be declared as **key**. 
+<p>&nbsp;</p>
 
-- Other columns can be considered as measured variables. 
+- In tsibble:
 
-```{r t2_1, echo=TRUE, highlight.output=c(1,2)}
+1. **Key** is a set of variables that define subjects measured over time.
+
+  - **identifier**
+
+2. **Index** is a variable with inherent ordering from past to present 
+
+  - **time-relevant variable**
+   
+3. Each observation should be uniquely identified by **key** and **index**.
+
+4. Other non-identified variables are referred to as _measured_ variables.
+
+---
+
+## Contextual semantics: **key** and **index**
+
+- **Key** can be comprised of empty, one, or more variables. 
+  - For multiple variables, declare `key = c(x1, x2, x3)`. 
+  - can be created in conjunction with tidy selectors like `starts_with()`
+
+- **Index** supports an extensive range of indices 
+    - native time classes in R (Date, POSIXct, difftime, etc.)
+    - tsibble's new additions (yearweek, yearmonth, and yearquarter)
+
+- **Interval** is computed from index based on corresponding time class.
+
+|Class                    |interval                    |
+|-------------------------|----------------------------|
+|interger/numeric/ordered | either "unit" or "year"(Y)|
+|yearquarter/yearqtr      | "quarter"(Q)|
+|yearmonth/yearmon        | "month"(M)|
+|yearweek                 | "week"(W)|
+|Date / difftime          | "day"(D) / W, D, h, m, s|
+|POSIXt, hms / nanotime   | h, m, s, us, ms / ns|
+---
+
+## Ex) nycflights13::weather
+
+- The `weather` data contains the hourly records (temperature, humid and precipitation) over the year of 2013 at three stations (JFK, LGA and EWR).
+
+```{r t2_1, echo=TRUE, highlight.output=c(1)}
 weather <- nycflights13::weather %>% 
   select(origin, time_hour, temp, humid, precip)
 
@@ -104,7 +130,7 @@ weather
 
 ---
 
-# Ex) nycflights13::weather
+## Ex) nycflights13::weather
 
 - `time_hour` containing the date-times should be declared as **index**
 
@@ -126,9 +152,9 @@ weather_tsbl
 
 - If the observations are made at regular time interval, we could turn these implicit missingness to be explicit simply using `fill_gaps()`.
 
-- `fill_gaps()` also handles filling in time gaps by values or functions, and respects time zones for date-times.
+- `fill_gaps()` also handles filling in **time gaps** by values or functions and respects time zones for date-times.
 
-```{r t3, echo=TRUE, highlight.output=c(1,2,3)}
+```{r t3, echo=TRUE, highlight.output=c(1,3)}
 full_weather <- weather_tsbl %>%
   fill_gaps(precip = 0) %>% #<<  
 #filling gaps in precip with 0
@@ -141,13 +167,21 @@ full_weather
 
 ---
 
+# fill_gaps()
+
+<img src="f1.png" style="width: 100%" />
+
+---
+
 # index_by() + summarise()
 
 > **`index_by()`** + **`summarise()`** to aggregate over calendar periods
 
 <p>&nbsp;</p>
 
-- `index_by()` is the counterpart of `group_by()` in temporal context, but it groups the index only. 
+- tidy data representation mostly supports part of a “data pipeline” in time-based context. 
+
+- `index_by()` is the counterpart of `group_by()` in temporal context, but it groups the time index only. 
 
 - In conjunction with `index_by()`, **`summarise()`** and its scoped variants aggregate variables over calendar periods.
 
@@ -157,14 +191,15 @@ full_weather
 
 # index_by() + summarise()
 
-**Example**) To compute average temperature and total precipitation *per month*, we can apply `yearmonth()` to the index variable (referred to as .).
+**Example**) To compute _average_ temperature and _total_ precipitation *per month*, we can apply `yearmonth()` to the index variable (referred to as .).
 
   - While collapsing rows (by `summarise()`), `group_by()` and `index_by()` take care of updating the key and index respectively.
 
 ```{r t4, echo=TRUE, highlight.output=c(3, 4)}
 full_weather %>%
   group_by_key() %>%
-  index_by(year_month = ~ yearmonth(.)) %>% # monthly aggregates
+  index_by(year_month = ~ yearmonth(.)) %>% #<<
+  # monthly aggregates with new variable name (year_month)
   summarise(
     avg_temp = mean(temp, na.rm = TRUE),
     ttl_precip = sum(precip, na.rm = TRUE)
@@ -221,6 +256,13 @@ aus_retail %>%
   forecast(h = "2 years") %>% 
   autoplot(filter(aus_retail, year(Month) > 2010), level = NULL)
 ```
+
+> Sorry, I DO NOT know what `ets` and `snaive` are. 
+
+- Visit [Forecasting: Principles and Practice](https://otexts.com/fpp3) 
+  - looks super helpful when dealing with timeseries data
+
+
 ---
 
 # Example
