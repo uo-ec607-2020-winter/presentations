@@ -66,11 +66,18 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 
 - Saves time, that's pretty precious
 
-- Grant will say you should care so you should, otherwise face his wrathful glare
+- Grant will say you should care so you should, otherwise face Grant Moff Tarkin's wrathful glare
 
-```{r, r, echo = FALSE, fig.align='center', out.width = "400px" }
+```{r, echo = FALSE, fig.align='center', out.width = "400px" }
 knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\tarkin.jpg")
 
 ```
 
+## Other possibilities
 
+-Monet DB was recommended by Ed
+
+``` {r, echo = FALSE, fig.align='center', out.width = "400px"}
+
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\monetdb.png")
+```
