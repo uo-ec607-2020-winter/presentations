@@ -9,14 +9,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+In order to install `rgeocodio` you will need to load the `devtools` package. Install it if you haven't already `install.packages("devtools")`. Once `devtools` is loaded run:
+`devtools::install_github('hrbrmstr/rgeocodio')`.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+geocodio uses...wait for it...an API! To get an API visit <https://dash.geocod.io/>. Then save it in your **Renviron**. Recall that you can do this by typing `usethis::edit_r_environ()` and saving your API code from the geocodio website.
 
+We still need to authorize our API in our R session. Do so by running
 ```{r cars}
-summary(cars)
+gio_auth(force = F)
+
 ```
 
+`force` is an argumnet asking if you are **forcing** a new geocode API key to be set for the current environment. WHAT DOES THIS MEAN
 ## Including Plots
 
 You can also embed plots, for example:
