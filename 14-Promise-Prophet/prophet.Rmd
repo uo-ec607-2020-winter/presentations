@@ -1,0 +1,76 @@
+---
+title: "Prophet"
+author: "Promise"
+date: "2/20/2020"
+output:
+  ioslides_presentation: default
+  beamer_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Contents
+
+1. Introduction 
+2. Why Use Prophet
+3. Prophet in Use
+
+## Introduction {.build}
+- Prophet is a procedure for forecasting time series data based on an additive model where non-linear trends are fit with seasonality, plus holiday effects.
+```{r Additive-model}
+knitr::include_graphics('s6.PNG')
+```
+
+- robust to missing data and shifts in the trend, and handles outliers well.
+
+## Why Use Prophet {.build}
+### 1. Accurate and fast
+  -used to produce reliable forecasts for planning and goal setting in many applications across Facebook  
+  
+  -It performs better than any other approach in the majority of cases.
+
+### 2. Fully automatic
+  -Prophet provides reasonable forecast on messy data with no manual effort.  
+  
+  -it is robust to outliers, missing data, and dramatic changes in your time series.
+  
+
+## Why Use Prophet {.build}
+### 3. Tunable tables
+  -procedure includes many possibilities for users to tweak and adjust forecasts.
+  
+  -you can use human-interpretable parameters to improve your forecast by adding your domain knowledge.
+  
+### 4. Available in R and Python 
+  -with our R knowledge, we should find Prophet easy to work with
+  
+## Prophet in R {.build}
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s1.PNG')
+```
+ 
+  -if you are on a mac, first download R toolchain installer
+  
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s7.PNG')
+```
+
+## Prophet in R {.build}
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s3.PNG')
+knitr::include_graphics('s4.PNG')
+```
+
+## Prophet in R
+```{r, out.width='100%', fig.align='center'}
+knitr::include_graphics('s5.PNG')
+```
+
+## Sources
+- https://facebook.github.io/prophet/docs/installation.html
+
+- https://facebook.github.io/prophet/docs/quick_start.html#r-api
+
+- https://github.com/rmacoslib/r-macos-rtools#how-do-i-use-the-installer
