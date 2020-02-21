@@ -7,6 +7,9 @@ output: ioslides_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(pacman)
+
+p_load(png, grid)
 
 
 ```
@@ -16,29 +19,58 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\spark_logo_2x.png")
 ```
 
--Spark is open source unified analytics engine that assists with data processing and machine learning.
+- Spark is open source unified analytics engine that assists with data processing and machine learning.
 
--Derived from Hadoop (we will talk about differences in a second)
+- Derived from Hadoop (we will talk about differences in a second)
 
--Developed at UC Berkeley in 2009
+- Developed at UC Berkeley in 2009
 
--Run by Apache now
+- Apache is its caretaker now, checks out some of their other open source programs!
 
-## Slide with Bullets
+## What is Hadoop?
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+```{r, fig.align='center', echo=FALSE, out.width = "200px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\hadoop.jpg")
 
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
 ```
 
-## Slide with Plot
+- Allows for the processing of big data across clusters of computers 
 
-```{r pressure}
-plot(pressure)
+- Your data and applications are safe with Hadoop thanks to distributed computing
+
+- Every machine spun up offers local computation and storage to disk
+
+## So why Spark?
+
+```{r, echo = FALSE, fig.align='center', out.width = "300px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\speed.jpg")
 ```
+
+- SPEED! Spark was designed to be much faster than Hadoop. It does this by saving fewer operations to disk, and using RAM.
+
+- Spark is available in multiple programming languages (SQL, Java, Python, Scala)
+
+- Spark uses Hadoop for storage only, uses seperate clusters for computation
+
+## Other benefits of Spark
+
+- Real time processing, which allows for processing of streaming data. This also provides instantaneuous results.
+
+- Spark is extremely useful for machine learning. (Sit in on Ed's class next year!!! With his permission of course)
+
+- Spark is really useful for graph algorithms (GraphX) and unites exploratory graph analysis, iterative graph computation, and ETL (extract, transform, load) under one roof.
+
+## Who cares?
+
+- Many major companies like Yahoo!, Amazon, and ebay use Spark
+
+- Saves time, that's pretty precious
+
+- Grant will say you should care so you should, otherwise face his wrathful glare
+
+```{r, r, echo = FALSE, fig.align='center', out.width = "400px" }
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\tarkin.jpg")
+
+```
+
 
