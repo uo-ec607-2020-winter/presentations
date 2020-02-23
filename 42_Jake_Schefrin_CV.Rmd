@@ -1,0 +1,73 @@
+---
+title: "Cross Validation"
+author: "Jake Schefrin"
+date: "2/21/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Let's go explore!
+
+```{r, echo = FALSE, fig.align='center', out.width = "400px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\lac.jpg")
+
+```
+We are leaving the comfortable world of causal inference into the world of prediction. In math terms we are no longer thinking about the $\hat\beta$ in $\hat{y_i}=\beta_0 + \hat\beta_1*x_i+\epsilon_i$ but instead about $\hat{y}$.
+
+
+## What is Cross Validation (CV)?
+
+CV is a resampling method used to compare how good different predictive models are at predicting an outcome $\hat{y}$. "Good" is defined as finding the predictive model with the smallest MSE or MAE. We are briefly going to discuss three methods of CV:
+
+- Validation Set Approach (Holdout Method)
+
+- Leave One Out Cross Validation (LOOCV)
+
+- K-folds cross validation
+
+## Some quick definitions/concepts
+
+- Training data: The "seen" data from our data set on which we train our predictive model
+
+- Test data: The unseen data from our data set on which we apply our model from the training data to measure performance
+
+- Bias/variance tradeoff: The tradeoff between underfitting the data (bias) vs overfitting the data (variance) with our predictive models
+
+
+## Validation Set Approach (Holdout Method)
+
+```{r, echo = FALSE, fig.align='center', out.width = "400px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\holdout.jpg")
+
+```
+
+- Divide our dataset into a training set and a test set
+
+- Train and test our models
+
+## Validation Set Approach (Holdout Method)
+
+```{r, echo = FALSE, fig.align='center', out.width = "800px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\holdout_test.jpg")
+
+```
+
+
+## Leave One Out Cross Validation (LOOCV)
+
+```{r, echo = FALSE, fig.align='center', out.width = "400px"}
+
+
+```
+
+## K-folds cross validation
+
+```{r, echo = FALSE, fig.align='center', out.width = "400px"}
+
+
+```
+
+
