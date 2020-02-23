@@ -29,6 +29,10 @@ CV is a resampling method used to compare how good different predictive models a
 - K-folds cross validation
 
 ## Some quick definitions/concepts
+```{r, echo = FALSE, fig.align='center', out.width = "200px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\data.jpg")
+
+```
 
 - Training data: The "seen" data from our data set on which we train our predictive model
 
@@ -46,7 +50,9 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 
 - Divide our dataset into a training set and a test set
 
-- Train and test our models
+- Train our model on the training set (blue)
+
+- Test our models on the test set (orange? creamscicle?)
 
 ## Validation Set Approach (Holdout Method)
 
@@ -59,15 +65,49 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 ## Leave One Out Cross Validation (LOOCV)
 
 ```{r, echo = FALSE, fig.align='center', out.width = "400px"}
-
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\loocv.jpg")
 
 ```
+
+- Our training set is all the data except for one data point
+
+- Our test (validation) set is the one remaining data point
+
+- Every data point gets to be a test set up to n, then we average the MSE to measure model performance
+
+- Less bias, but computationally expensive
 
 ## K-folds cross validation
 
 ```{r, echo = FALSE, fig.align='center', out.width = "400px"}
-
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\five_fold.jpg")
 
 ```
+
+- Similar to LOOCV, but with larger sets of training data
+
+- MSE calculated the same way as LOOCV
+
+## Measuring Performance
+
+```{r, echo = FALSE, fig.align='center', out.width = "500px"}
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\perform.jpg")
+
+```
+
+- Both types of cross validation methods perform similiarly. 
+
+- LOOCV is less biased than k folds method, but requires more computing power. Imagine if you sample has 100000 observations!
+
+- K-folds is less computationally expensive and has less variance than LOOCV
+
+## Resources
+
+- Sit in on Ed's machine learning class next year, it's totally worth it.
+
+- [Ed's class notes](https://github.com/edrubin/EC524W20)
+
+- [Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/) This book is free and does a good job of introducing machine learning.
+
 
 
