@@ -1,0 +1,213 @@
+---
+title: "Reticulate"
+author: "Chris Berg"
+institute: "University of Oregon"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts] 
+    lib_dir: libs
+    keep_md: TRUE
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load( reticulate )
+```
+
+class: center, middle
+
+Who is this cute lil' guy?
+
+```{r pythonpic , echo = F , out.height='70%' , out.width='70%'}
+python_pic = 'https://upload.wikimedia.org/wikipedia/commons/7/72/Retic2.jpg' 
+knitr::include_graphics(python_pic)
+```
+
+Image credit: [Wikimedia Commons](https://upload.wikimedia.org/wikipedia/commons/7/72/Retic2.jpg)
+
+---
+
+# Reticulate(d python)
+
+What does Reticulate do? Put simply:
+- "Reticulate embeds a Python session within your R session ... The package enables you to reticulate Python code into R, creating a new breed of project that weaves together the two languages." [(Source)](https://rstudio.github.io/reticulate/)
+
+--
+
+Why is this (really) cool?
+- Allows you to integrate two of the most popular and powerful programming languages out there.
+
+---
+
+- Crazy unrealistic example: What if you're tasked with running a very complicated time series function in a program you don't know super-well like, say, Matlab... but you could call some simple function you know from Stata when you want to do something while writing your code?
+  - ...Or vice-versa, if you wanted to use a Matlab function in Stata?
+--
+  
+  - Just replace "Matlab" with R and "Stata" with Python in this example; that's what reticulate offers.
+
+---
+# Setting up reticulate
+
+Before beginning, you have two options:
+1. [Download and install Python](https://www.python.org/downloads/) on your computer.
+2. Install the miniconda Python environment via reticulate, using install_miniconda()
+
+--
+
+If you're doing (2), it's as easy as:
+
+```{r reticulatesetup , eval=FALSE}
+
+install.packages("reticulate")
+library(reticulate) 
+
+install_miniconda()
+```
+
+---
+# Using Reticulate
+
+Now that we've installed reticulate and miniconda, we can move on to actually creating our Python environment where you can start to use reticulate to its fullest. Because Python lets us have multiple environments, we'll pick the name `r "r-reticulate"` for the one we're going to use.
+
+```{r environmentsetup , eval=FALSE}
+# already done:
+#install.packages("reticulate")
+#library(reticulate) 
+#
+#install_miniconda()
+
+conda_create("r-reticulate")
+use_condaenv("r-reticulate")
+
+```
+--
+...And now that we've created our Python environment, let's see if R is using it.
+
+```{r testsetup}
+Sys.which("python") 
+```
+---
+# Using conda with reticulate
+
+Installing packages (here, for example, the "pandas" data management package) is a breeze in this environment; just add:
+
+```{r packageinstallex , eval=F}
+conda_install("r-reticulate" , "pandas")
+```
+
+--
+In order to make sure it worked:
+
+```{r installtest}
+py_module_available("pandas")
+```
+---
+# Using reticulate
+
+There are a couple of cool ways to use reticulate that I'll show here.
+1. Executing Python scripts from your R and Rmarkdown code. 
+--
+
+2. Sourcing Python functions into your R code.
+--
+
+3. Sourcing Python packages and commands into your R code
+
+--
+
+(If we have time) 4. Directly coding Python from the R console through the REPL.
+
+---
+# Executing Python scripts in R(md)
+
+The following script in Python will factors the primes of any number it is given. Using reticulate, this code can be painlessly executed in Rmarkdown.
+
+```{python pythonexe }
+import math as m
+
+def primefactor ( n ):
+    while n % 2 == 0:
+        print(2),
+        n = n/2
+
+    for i in range( 3 , int(m.sqrt(n)) , 2 ):
+        while n % i == 0:
+            print(i),
+            n = n / i
+
+    if n > 2:
+        print(n)
+        
+z = 97403 
+primefactor(z) 
+```
+
+---
+
+# Sourcing Python functions into R
+
+We can also use reticulate to pull functions from a Python script that can then be used in an R script. 
+
+-Suppose I have a Python program "`r "cdprofit.py"`" that solves the short-run competitive profit maximum for a Cobb-Douglas firm given prices and fixed capital. 
+```{python pythonprofit}
+def cdprofit(k,a,p,w,r):
+  b = 1-a
+  l = (b*p*(k**a)/w)**(1/(1-b))
+  return p*(k**a)*(l**b) - w*l - r*k
+```
+--
+I can take the function from the Python program and run it in R:
+
+```{r pythonfunc}
+source_python('cdprofit.py')
+cdprofit(100,0.5,5,1,1)
+```
+---
+# Comparison: Python vs reticulate 
+
+Another way to interface with Python using reticulate is to import Python packages into R with reticulate, and being able to exercise their functionality. Let's find out what Grant ate for breakfast using Python and reticulate.
+--
+
+.pull-left[
+In Python:
+```{python tuesbreakfastpy}
+import pandas as pd
+pd.read_csv("meals/tuesday.csv")
+```
+]
+
+
+--
+
+.pull-right[
+In R:
+```{r tuesbreakfastr}
+pd = import("pandas")
+pd$read_csv("meals/tuesday.csv")
+```
+]
+
+--
+
+-*Quick quiz! Why is our row indexed as "0" in Python but in R as "1"?*
+
+---
+
+These featured some highly simplified examples, just to show how easy it is to use some of the basic functions of reticulate.
+--
+
+- Nonetheless I hope you can tell how much potential this package has to combine two powerhouse programming languages.
+--
+
+- **Thank you.**
+
+```{r rpythonpic , fig.align='center' , echo = F  , out.height='50%' , out.width='50%'}
+python_r = 'https://rstudio.github.io/reticulate/images/reticulated_python.png' 
+knitr::include_graphics(python_r)
+```
