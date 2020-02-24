@@ -26,7 +26,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 11 | Tidyeval | [a](https://dplyr.tidyverse.org/articles/programming.html), [b](https://tidyeval.tidyverse.org/) | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/10-EthanHoldahl-Tidyeval/Tidyeval.html)| 
 | 12 |  |  |  |
 | 13 | conda |  | [James](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/11-James-Conda-Jupyter/conda_jupyter.html) |  
-|    | reticulate |  | Chris | 
+|    | reticulate |  | [Chris](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/13-Berg-reticulate/reticulate.html) | 
 | 14 | tsibble and/or fable | [a](https://tsibble.tidyverts.org), [b](https://fable.tidyverts.org) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-KevinSong-tsibble_fable/tsibble_fable.html) |
 |    | prophet | [a](https://facebook.github.io/prophet/) | [Promise Kamanga](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-Promise-Prophet/prophet.html#1) | 
 | 15 | Shiny |  | Ethan Holdahl | 
