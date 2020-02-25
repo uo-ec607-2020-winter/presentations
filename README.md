@@ -29,7 +29,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 |    | reticulate |  | [Chris](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/13-Berg-reticulate/reticulate.html) | 
 | 14 | tsibble and/or fable | [a](https://tsibble.tidyverts.org), [b](https://fable.tidyverts.org) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-KevinSong-tsibble_fable/tsibble_fable.html) |
 |    | prophet | [a](https://facebook.github.io/prophet/) | [Promise Kamanga](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-Promise-Prophet/prophet.html#1) | 
-| 15 | Shiny |  | Ethan Holdahl | 
+| 15 | Shiny |  | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/15-EthanHoldahl-Shiny/Shiny.html) | 
 |    | Writing an R package |  | Robert McDonough | 
 | 16 |geocode  |  | Garrett Stanford | 
 |    | julia |  | Pramod | 
