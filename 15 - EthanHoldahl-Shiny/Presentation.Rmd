@@ -1,16 +1,19 @@
 ---
-title: "Fastest 100 metre times"
-author: "Ethan Holdahl"
-date: "`r format(Sys.time(), '%d %B %Y')`"
-runtime: shiny
-output:
+title: "Shiny"
+
+author: Ethan Holdahl
+
+output: 
   html_document:
-    theme: yeti
+    theme: flatly
     highlight: haddock 
+    # code_folding: show
     toc: yes
-    toc_depth: 3
+    toc_depth: 4
     toc_float: yes
     keep_md: true
+
+runtime: shiny
 
 ---
 
