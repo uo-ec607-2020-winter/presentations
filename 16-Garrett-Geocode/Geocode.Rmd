@@ -2,31 +2,107 @@
 title: "Geocode"
 output: html_document
 ---
-There are many options for Geocoding. Like_____ but today we are going to look at Geocodio and its R interface rGeocodio
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## What is Geocoding?
+
+Geocoding is taking a human readable address (e.g. 1600 Pennsylvania Ave NW, Washington DC 20500) or a name of a place (e.g. The White House) and turns it into a geographic position using measures of longitude and latitude. 
+
+Reverse Geocoding is what it sounds like; it takes a lat-long pair and converts it into an address or a place. 
+
+## The Geocoding Process 
+
+* **Step 1: Input Data**
+      Descriptive or textual data is inputted to yeild a desired corresponding spatial data 
+* **Step 2: Classification of Input Data**
+      Input data is sorted into two groups *relative input data* and *absolute data*
+* **Step 3A: Relative Input Data**
+      Relative input data is the non-preferred type of data (most geocoding reject relative input data). Relative data are textual descriptions of locations that cannot be converted into precise spatial data on their own. Instead they are dependent on a other refeerence locations. For example, "across the street from the White House" has to use "the White House" as a reference point and then deduce what "across the street" means.
+* **Step 3B: Absolute Data**
+      This is the sweet sweet data that geocoding platforms love. 
+
+Why is geocoding helpful? When is it used? 
+
+##Geocodio
+There are many options for Geocoding. Like but today we are going to look at Geocodio and its R interface rGeocodio
+how the website works
+appends
+pricing
+
+
+##Using rgeocodio
+
+why use it? When is it helpful (functions, chron jobs, teaching)
 
 In order to install `rgeocodio` you will need to load the `devtools` package. Install it if you haven't already `install.packages("devtools")`. Once `devtools` is loaded run:
 `devtools::install_github('hrbrmstr/rgeocodio')`.
 
-geocodio uses...wait for it...an API! To get an API visit <https://dash.geocod.io/>. Then save it in your **Renviron**. Recall that you can do this by typing `usethis::edit_r_environ()` and saving your API code from the geocodio website.
+geocodio uses...wait for it...an API! To get an API visit [geocodio's website](https://dash.geocod.io/). Then save it in your **Renviron**. Recall that you can do this by typing `usethis::edit_r_environ()` and saving your API code from the geocodio website.
 
-We still need to authorize our API in our R session. Do so by running
+We still need to authorize our API in our R session. Do so by running `gio_auth()`. 
 ```{r cars}
+library(pacman)
+p_load(rgeocodio)
+
+
 gio_auth(force = F)
 
+
+rgeocodio::gio_geocode('1600 Pennsylvania Ave NW, Washington DC 20500')
 ```
 
-`force` is an argumnet asking if you are **forcing** a new geocode API key to be set for the current environment. WHAT DOES THIS MEAN
-## Including Plots
+For more resources visit the [github for rgeocodio](https://github.com/hrbrmstr/rgeocodio)
 
-You can also embed plots, for example:
+Lets look at a few examples:
+```{r}
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+rgeocodio::gio_geocode("Oregon")
+rgeocodio::gio_geocode("Multnomah County, Oregon")
+rgeocodio::gio_geocode("Multnomah County Courthouse, Oregon, 97204")
+rgeocodio::gio_geocode("1021 SW 4th ave, Portland, OR, 97204")
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+What about out geocoding the rest of the world, chico?
+```{r}
+rgeocodio::gio_geocode('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987')
+```
+
+*gasp* Geocodio only works, from my understanding, in the United States and Canada, just like--nevermind. We can use **Google's geocoder** to do the rest of the world.
+
+[Here is the website](https://developers.google.com/maps/documentation/geocoding/intro) to help you get started. Google's R interface is the package `ggmap`. Note that you will need an API for `ggmap`.
+
+```{r}
+ggmap::geocode('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987')
+```
+
+I have found that Google's geocoder also is better at guessing what we are trying to geocode:
+
+```{r}
+rgeocodio::gio_geocode("The White House")
+ggmap::geocode("the White House") 
+```
+
+I created a vector with some addresses:
+
+```{r}
+
+c('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987', 
+  '1814 N underwood st, Arlington VA',
+  '43 Kruse St Omak, WA 98841',
+  '3337 chestnut avenue, trevose PA, 19053',
+  'Nkhata-Bay, Malawi',
+  '426 n hambden st chardon, OH 44024',
+  '1009 Brookwood Road, Jacksonville Florida 32207',
+  'China',
+  'India',
+  'Bengladesh',
+  )
+
+
+You can compare and contrast and decide which platform is best for you. [Here is one of the comparisons](https://www.geocod.io/compare/). Like I mentioned, Google seems better equipped for foreign addresses and filling in the missing info. However, if you have the address numbers and it's domestic Geocodio is the cheaper and superior option.  
+
+
