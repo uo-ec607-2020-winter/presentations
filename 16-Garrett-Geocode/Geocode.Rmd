@@ -76,6 +76,7 @@ rgeocodio::gio_geocode('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South 
 [Here is the website](https://developers.google.com/maps/documentation/geocoding/intro) to help you get started. Google's R interface is the package `ggmap`. Note that you will need an API for `ggmap`.
 
 ```{r}
+p_load(ggmap)
 ggmap::geocode('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987')
 ```
 
@@ -90,18 +91,24 @@ I created a vector with some addresses:
 
 ```{r}
 
-c('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987', 
+address_vector<- c('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987', 
   '1814 N underwood st, Arlington VA',
   '43 Kruse St Omak, WA 98841',
   '3337 chestnut avenue, trevose PA, 19053',
   'Nkhata-Bay, Malawi',
   '426 n hambden st chardon, OH 44024',
   '1009 Brookwood Road, Jacksonville Florida 32207',
-  'China',
-  'India',
-  'Bengladesh',
+  '4922 N ardmore whitesfish bay, WI, 53217'
   )
 
+z<- geocode(address_vector)
+
+y<-get_map(zoom=1, maptype = "watercolor", location = 'world', center='Spain')
+?get_map
+?ggmap
+ggmap(y)+geom_point(aes(x = lon, y = lat), data = z, size = 0.5)
+
+```
 
 You can compare and contrast and decide which platform is best for you. [Here is one of the comparisons](https://www.geocod.io/compare/). Like I mentioned, Google seems better equipped for foreign addresses and filling in the missing info. However, if you have the address numbers and it's domestic Geocodio is the cheaper and superior option.  
 
