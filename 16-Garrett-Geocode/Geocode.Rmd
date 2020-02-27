@@ -57,7 +57,7 @@ library(pacman)
 p_load(rgeocodio, ggmap)
 
 
-gio_auth(force = F)
+#gio_auth(force = F) <- run this 
 
 
 rgeocodio::gio_geocode('1600 Pennsylvania Ave NW, Washington DC 20500')
