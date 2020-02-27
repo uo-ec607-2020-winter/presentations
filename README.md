@@ -32,7 +32,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 15 | Shiny |  | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/15-EthanHoldahl-Shiny/Shiny.html) | 
 |    | Writing an R package |  | Robert McDonough | 
 | 16 |geocode  |  | [Garrett Stanford](https://rpubs.com/GarrettStanford21/579497) | 
-|    | julia |  | [Pramod](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-Pramod-Julia/julia.html) | 
+|    | julia |  | [Pramod Dudhe](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-Pramod-Julia/julia.html) | 
 | 17 |  tidytext |  | Colleen O'Briant | 
 |    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
