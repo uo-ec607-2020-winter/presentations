@@ -30,7 +30,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 14 | tsibble and/or fable | [a](https://tsibble.tidyverts.org), [b](https://fable.tidyverts.org) | [Kevin Song](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-KevinSong-tsibble_fable/tsibble_fable.html) |
 |    | prophet | [a](https://facebook.github.io/prophet/) | [Promise Kamanga](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/14-Promise-Prophet/prophet.html#1) | 
 | 15 | Shiny |  | [Ethan Holdahl](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/15-EthanHoldahl-Shiny/Shiny.html) | 
-|    | Writing an R package |  | Robert McDonough | 
+|    | Writing an R package |  | [Robert McDonough] (https://raw.githack.com/uo-ec607-2020-winter/presentations/master/15-RobertMcDonough-WriteanRPackage/RPackage_PResentation.html) | 
 | 16 |geocode  |  | [Garrett Stanford](https://rpubs.com/GarrettStanford21/579497) | 
 |    | julia |  | [Pramod Dudhe](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-Pramod-Julia/julia.html) | 
 | 17 |  tidytext |  | Colleen O'Briant | 
