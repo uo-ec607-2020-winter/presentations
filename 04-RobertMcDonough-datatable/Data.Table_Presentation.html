@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="" xml:lang="">
   <head>
     <title>data.table: A Complement to the Tidyverse</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Robert McDonough" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
@@ -32,7 +32,7 @@ class: center, middle, inverse, title-slide
 Data.table is a package centered around the data.table object. 
 
 - data.tables are data.frames upgraded with extra functionality to make data wrangling a breeze.
-
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
 --
 Compared to using data.frames, working with data in data.tables is:
 
@@ -95,21 +95,25 @@ What the tidyverse does one operation at a time, data.table does with one concis
 &lt;/br&gt;
 
 To manipulate a data.table, all you do is:
+&lt;/br&gt;
 --
 1. Tell R the data.table's name
+&lt;/br&gt;
 --
 2. Tell R the end product that you want to see. 
 &lt;/br&gt;
 
 --
 
-With data.tables we we can frequently write out command as a single, fluid thought.
+With data.table, we we can frequently write out command as a single, fluid thought.
 ---
 
 # A Quick Example
 
 Let's take our starwars question:
 &gt;what is the average height of humans on each homeworld, by gender?
+
+&lt;/br&gt;
 --
 
 With data.table
@@ -134,7 +138,6 @@ starwars_dt[species=="Human", mean(height, na.rm=T), by=.(homeworld, gender)]
 --
 
 &lt;/br&gt;
-
 using data.tables, most types of data wrangling can be done within this simple framework.
 ---
 # DT[i,]- Filtering
@@ -152,21 +155,22 @@ data.table's filter works much like dplyr's:
 
 --
 - `data_table[1:10,]`: Grab the first 10 rows
+&lt;/br&gt;&lt;/br&gt;
 --
-
 data.table can handle multiple filters at once, too:
 
-`data_table[var1=="string" &amp; var2&gt;5,]`: Grab all rows where var1="string" and var2 is a number greater than 5
-&lt;/br&gt;
+- `data_table[var1=="string" &amp; var2&gt;5,]`: Grab all rows where var1="string" and var2 is a number greater than 5
 
+&lt;/br&gt;&lt;/br&gt;
 --
-One Difference: &lt;/br&gt;
+One Difference: 
+&lt;/br&gt;
 --
-Since we start off by telling R what data.table to look at, we can call variables without using `$`
+Since we start by telling R what data.table to look at, we can call variables without using `$`
 ---
 # DT[,j]- Manipulating
 
-With dplyr, we need to use different verbs to do manipulate our variables in different ways:
+With dplyr, we need to use different verbs to manipulate our variables in different ways:
 
 - `select()`
 - `mutate()`
@@ -179,6 +183,8 @@ With dplyr, we need to use different verbs to do manipulate our variables in dif
 
 data.table recognizes that all of these verbs are just different versions of telling R: 
 &gt;'*do something to this variable in my dataset*'
+
+&lt;/br&gt;
 --
 
 data.table let's you do all of those operations in one place: the `j` argument.
@@ -294,11 +300,13 @@ Everything I've done above can be done equally well in dplyr, or even base R, bu
 
 Since we tell data.table the end product that we want all at once, up front, R has much more freedom to optimize how it gives you that end product. 
 
+&lt;/br&gt;
 --
-
 - In dplyr, R has to do each intermediate step in exactly the order we tell it to. 
+&lt;/br&gt;
 --
 - For big datasets, the time difference can be massive 
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
 --
 
 data.table brings that speed to reading and writing documents too:
@@ -329,17 +337,19 @@ More comprehensive data.table resources:
 ---
 # data.table v. Tidyverse?
 Since data.tables are still data.frames, just upgraded, all data.frame operations still work on them
+&lt;/br&gt;
 --
 - This includes the tidyverse!
-
+&lt;/br&gt;&lt;/br&gt;
 --
-Also, there's dtplyr
+Also, there's the dtplyr package
+&lt;/br&gt;
 --
-- dtplyr is a package that modifies many of the functions in dplyr to use data.table code in the background
+- dtplyr modifies many of the functions in dplyr to use data.table code in the background
+&lt;/br&gt;
 --
-
 - Get the speed of data.table where you need it, with less of a shock to your coding habits.
-
+&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;
 --
 Available as part of the tidyverse
 - https://dtplyr.tidyverse.org/
@@ -352,6 +362,7 @@ Available as part of the tidyverse
 - `install.packages("dtplyr") `&lt;/br&gt;
   `library(dtplyr)`
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -361,16 +372,74 @@ Available as part of the tidyverse
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})();</script>
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -384,7 +453,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
