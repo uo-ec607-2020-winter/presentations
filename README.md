@@ -36,7 +36,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 17 |  tidytext |  | Colleen O'Briant | 
 |    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
-|    | Bayesian Modeling |[a](https://greta-stats.org/index.html)  | Shan Zhang | 
+|    | Bayesian Modeling |[a](https://greta-stats.org/index.html)  | [Shan Zhang](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/20-ShanZhang-Bayesian_greta/Presentation_greta.html#1) | 
 | 19 | Big data | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg | 
 |    | Cross-validation |  | Jake Schefrin | 
 | 20 | drake |  | Pramod Dudhe | 
