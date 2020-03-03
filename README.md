@@ -33,7 +33,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 |    | Writing an R package | [a](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/),[b](https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/),[c](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) | [Robert McDonough](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/15-RobertMcDonough-WriteanRPackage/RPackage_PResentation.html) | 
 | 16 |geocode  |  | [Garrett Stanford](https://rpubs.com/GarrettStanford21/579497) | 
 |    | julia |  | [Pramod Dudhe](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-Pramod-Julia/julia.html) | 
-| 17 |  tidytext |  | [Colleen O'Briant](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-ColleenOBriant-tidytext/tidytext_pres.html) | 
+| 17 |  tidytext |  | [Colleen O'Briant](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-ColleenOBriant-tidytext/tidytext.html) | 
 |    | blogdown | [a](https://bookdown.org/yihui/blogdown/) | Brad Bailey | 
 | 18 | Spark | [a](https://therinspark.com/intro.html#intro-background), [b](https://en.wikipedia.org/wiki/Apache_Spark) | Jake Schefrin | 
 |    | Bayesian Modeling |[a](https://greta-stats.org/index.html)  | [Shan Zhang](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/20-ShanZhang-Bayesian_greta/Presentation_greta.html#1) | 
