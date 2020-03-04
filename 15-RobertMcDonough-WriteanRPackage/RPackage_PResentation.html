@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Write your own R package</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Robert McDonough" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Write your own R package
+## <html>
+<div style="float:left">
+
+</div>
+<hr color='#EB811B' size=1px width=796px>
+</html>
+### Robert McDonough
+### 2/25/2020
+
+---
+
+
+
+
+# Why would you write your own package?
+## 1. Efficiency 
+
+- Save a useful function on a package instead of copying it into every new script you write.
+
+&lt;/br&gt;
+
+- Document how your 300 line function works once, then never need to look at it again&lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[
+&lt;sup&gt;1&lt;/sup&gt; Until it breaks
+]
+---
+# 2. Fame and Glory
+
+&lt;img src="meme_3.jpg" style="display: block; margin: auto;" /&gt;
+---
+# Leveling Up to Developer
+
+Some cool packages allow us to automate the more cumbersome portions of developing our own package:
+
+- `devtools`
+
+- `roxygen2`
+
+- `usethis`
+
+---
+# The Process
+&lt;/br&gt;
+
+Creating a package is actually pretty simple
+&lt;/br&gt;
+--
+1. Create a package directory
+&lt;/br&gt;
+--
+2. Add our functions
+&lt;/br&gt;
+--
+3. Add documentation
+&lt;/br&gt;
+--
+4. Install the package locally
+&lt;/br&gt;
+--
+5. Share with the world (optional)
+
+
+The rest of this presentation will go through these steps in detail, along with an example.
+
+---
+# Example
+I want to explore how cumulative GPAs develop term-by-term in college. 
+
+To that end, I've written this function:
+
+```r
+gpa_needed=function(current_gpa,gpa_wanted,terms, plusminus=T){
+  gpa_needed_primitive=gpa_wanted*terms-(current_gpa*(terms-1))
+  if (plusminus==T){
+    answer=ifelse(gpa_needed_primitive&gt;4.3, "Not possible this term", gpa_needed_primitive)
+  } else{
+    answer=ifelse(gpa_needed_primitive&gt;4, "Not possible this term", gpa_needed_primitive)
+  }
+  return(answer)
+}
+```
+--
+This function says how well a student has to do this term to at least reach some cumulative GPA goal. It takes arguments:
+- Current GPA
+- The student's GPA goal
+- Terms the student has been in school (inclusive of current term)
+- Whether the grade scale includes plus/minus grades
+---
+# Example
+I think that I may end up using this function a bunch, across multiple R scripts. 
+
+&lt;/br&gt; 
+--
+So, I'm going to put it in a package.
+---
+#1. Making a Package Directory
+A package directory is essentially just a new R project with a bit of extra structure. 
+
+This is the place where we are going to put all of the functions and documentation we want to include in our package.
+
+- We can copy and edit the functions in our package from inside this directory.
+
+- Once we're finished, we can tell R to turn our directory into a functional package with a few commands in the console. 
+
+&lt;/br&gt;
+We can use the`create` function from the `devtools` package to create this space.
+
+```r
+setwd("Insert_Directory_Here")
+create("package_name_here")
+```
+---
+#1. Making a Package Directory-Example
+
+
+```r
+setwd("gpa_project")
+create("gpa.package")
+```
+
+If you're creating this package directory within an existing project, you'll probably get the following warning message:
+
+&gt;New project 'gpa.package' is nested inside an existing project './', which is rarely a good idea.
+&gt;Do you want to create anyway?
+&gt;
+&gt;1: No
+&gt;
+&gt;2: I agree
+&gt;
+&gt;3: Absolutely not
+
+In what I've encountered so far, it's okay to say yes through these warnings. 
+- But if you plan to work on/edit this package a bunch, you should probably save it outside of any existing projects.
+---
+# Package Directory
+You should see a new folder created inside of whatever your current  working directory is. 
+- This is the package directory
+
+&lt;/br&gt;
+
+Inside, we see the normal project files, plus a few extras:
+
+&lt;img src="directory_create.png" width="464" style="display: block; margin: auto;" /&gt;
+---
+#2. Add Functions
+
+From here, we add any functions that we want to include in our package to the "R" folder as r scripts.
+- Each function can be added as an individual script, or one script can contain multiple functions.
+--
+&lt;img src="hold_so_many.jpg" style="display: block; margin: auto;" /&gt;
+---
+#2. Add Functions-Example
+I've saved my gpa function in a script called `gpa_needed.R`
+
+&lt;/br&gt;
+
+Now I'm just going to copy that script into my new package directory, under the R subfolder.
+
+&lt;img src="function_script.png" width="549" style="display: block; margin: auto;" /&gt;
+
+---
+#2. Add Functions-Example
+Alternatively, the `usethis` package allows us to create a new, blank R script from the console
+- We just have to make sure we've first set the working directory to the location in which we want the new script to be saved
+
+```r
+usethis::use_r('gpa_needed')
+```
+
+---
+#3. Add Documentation
+We probably know how our functions works, but if we plan to use this package long-term or share it, we should add some documentation
+
+All of the packages we can download from CRAN will have documentation on each function including:
+- A description of what the function does
+- Details on how it works
+- A desription of each argument
+- Examples
+
+&lt;/br&gt;
+--
+&lt;/br&gt;
+The `roxygen2` package makes adding this stuff quick and painless
+&lt;/br&gt;
+- Though, it is worth noting that we don't need to directly interact with roxygen, devtools does that for us
+---
+#3.1 Add Documentation
+
+To add documentation to a function in a package, we just add comments to the start of the R script for our function.
+
+&lt;/br&gt;
+--
+We flag the comments as documentation by beginning each line with #' (single quote) 
+&lt;/br&gt;
+--
+1. The first line becomes the documentation title
+&lt;/br&gt;
+--
+2. Next we put a description of the function
+&lt;/br&gt;
+--
+3. We write the different pieces of our documentation  using tags.
+
+&lt;/br&gt;
+--
+The tags allow `devtools` to tell which piece is which. Most are fairly self explanatory, but you can look up the details in the `roxygen` documentation.
+
+- `@param`
+- `@examples`
+
+&lt;/br&gt;
+--
+We do need to make sure to add the `@export` tag. This tells roxygen/devtools that we want to add this documentation to the namespace file. 
+---
+#3.1 Add Documentation- Example 
+Below I've added the bare minimum documentation to my gpa function
+
+
+```r
+#'GPA Needed Function
+#'
+#'This function determines the minimum term GPA a student needs to get in order to ensure that their cumulative GPA meets
+#'some goal at the end of the term. If the cumulative GPA goal is unreachable in one term, the function returns a message
+#'to that effect
+#'@param current_gpa The student's current cumulative GPA
+#'@param gpa_wanted The cumulative GPA goal for the end of the term
+#'@param terms The number of terms the student has been in college. This includes the current term
+#'@param plusminus Whether or not the grading scale is the normal plus/minus scale
+#'@export
+gpa_needed=function(current_gpa,gpa_wanted,terms, plusminus=T){
+  gpa_needed_primitive=gpa_wanted*terms-(current_gpa*(terms-1))
+  if (plusminus==T){
+    answer=ifelse(gpa_needed_primitive&gt;4.3, "Not possible this term", gpa_needed_primitive)
+  } else{
+    answer=ifelse(gpa_needed_primitive&gt;4, "Not possible this term", gpa_needed_primitive)
+  }
+  return(answer)
+}
+```
+---
+# 3.15 Relax and pat yourself on the back
+
+We're finished with hard work for the day. `devtools` and `roxygen` will take care of the rest. 
+
+&lt;img src="relax.jpg" style="display: block; margin: auto;" /&gt;
+
+---
+#3.2 Process the documentation
+First, we have devtools process our comments into proper documentation
+
+- The kind of documentation you see when you use the console to look up a function
+
+The process:
+&lt;/br&gt;
+--
+1. Make sure the working directory is set to the package folder
+&lt;/br&gt;
+--
+2. Run the command `document()` in the console. 
+---
+#3.2 Process the documentation-Example
+Going through this step with our gpa function...
+--
+
+```r
+setwd(gpa.package)
+document()
+```
+After this runs, we'll see some new stuff in our package
+&lt;img src="after_doc.png" width="284" style="display: block; margin: auto;" /&gt;
+---
+#4. Install that Package
+Now, we have all the elements we need in our package. We just need to tell R to install it locally. 
+
+&lt;/br&gt;
+--
+Again, we use `devtools`: 
+
+&lt;/br&gt;
+--
+1. Reset the working directory to whichever parent directory holds the package you've made
+&lt;/br&gt;
+--
+2. Run the command `install('package_name_here')` in the console. 
+
+&lt;/br&gt;
+
+--
+To check if the process was successful, you can now search for one of the package functions in the console, as you could with any regular package, or check the package tab in RStudio.
+---
+#4. Install that Package-Example
+Let's finally install our GPA package:
+
+&lt;/br&gt;
+--
+
+
+```r
+setwd(..)
+install('gpa.package')
+```
+---
+#4. Install that Package-Example
+##Success!
+
+
+&lt;img src="package_install.png" width="285" style="display: block; margin: auto;" /&gt;
+---
+#5. Share with the World
+
+From here, you can do a bit more work to get your package ready to share publicly. 
+&lt;/br&gt;
+--
+Github is the most common sharing method, but CRAN is also an option with more work 
+
+&lt;/br&gt;
+--
+I'll leave off here, but the links below detail exactly how to take a package from your computer to the world. 
+---
+#Links
+
+- https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/
+ + From the excellent blog of Hilary Parker. This presentation is largely based on her blog post linked above. 
+ 
+- https://r-mageddon.netlify.com/post/writing-an-r-package-from-scratch/
+  + How to add `use_this` to your package creation process
+  
+- https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/
+  + A deep dive on package creation
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

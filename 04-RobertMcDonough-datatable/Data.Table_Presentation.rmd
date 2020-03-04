@@ -34,7 +34,7 @@ opts_chunk$set(
 Data.table is a package centered around the data.table object. 
 
 - data.tables are data.frames upgraded with extra functionality to make data wrangling a breeze.
-
+</br></br></br>
 --
 Compared to using data.frames, working with data in data.tables is:
 
@@ -89,21 +89,25 @@ knitr::include_graphics('picture_1.jpg')
 </br>
 
 To manipulate a data.table, all you do is:
+</br>
 --
 1. Tell R the data.table's name
+</br>
 --
 2. Tell R the end product that you want to see. 
 </br>
 
 --
 
-With data.tables we we can frequently write out command as a single, fluid thought.
+With data.table, we we can frequently write out command as a single, fluid thought.
 ---
 
 # A Quick Example
 
 Let's take our starwars question:
 >what is the average height of humans on each homeworld, by gender?
+
+</br>
 --
 
 With data.table
@@ -117,7 +121,6 @@ starwars_dt[species=="Human", mean(height, na.rm=T), by=.(homeworld, gender)]
 --
 
 </br>
-
 using data.tables, most types of data wrangling can be done within this simple framework.
 ---
 # DT[i,]- Filtering
@@ -135,21 +138,22 @@ data.table's filter works much like dplyr's:
 
 --
 - `data_table[1:10,]`: Grab the first 10 rows
+</br></br>
 --
-
 data.table can handle multiple filters at once, too:
 
-`data_table[var1=="string" & var2>5,]`: Grab all rows where var1="string" and var2 is a number greater than 5
-</br>
+- `data_table[var1=="string" & var2>5,]`: Grab all rows where var1="string" and var2 is a number greater than 5
 
+</br></br>
 --
-One Difference: </br>
+One Difference: 
+</br>
 --
-Since we start off by telling R what data.table to look at, we can call variables without using `$`
+Since we start by telling R what data.table to look at, we can call variables without using `$`
 ---
 # DT[,j]- Manipulating
 
-With dplyr, we need to use different verbs to do manipulate our variables in different ways:
+With dplyr, we need to use different verbs to manipulate our variables in different ways:
 
 - `select()`
 - `mutate()`
@@ -162,6 +166,8 @@ With dplyr, we need to use different verbs to do manipulate our variables in dif
 
 data.table recognizes that all of these verbs are just different versions of telling R: 
 >'*do something to this variable in my dataset*'
+
+</br>
 --
 
 data.table let's you do all of those operations in one place: the `j` argument.
@@ -247,11 +253,13 @@ Everything I've done above can be done equally well in dplyr, or even base R, bu
 
 Since we tell data.table the end product that we want all at once, up front, R has much more freedom to optimize how it gives you that end product. 
 
+</br>
 --
-
 - In dplyr, R has to do each intermediate step in exactly the order we tell it to. 
+</br>
 --
 - For big datasets, the time difference can be massive 
+</br></br></br>
 --
 
 data.table brings that speed to reading and writing documents too:
@@ -284,17 +292,19 @@ knitr::include_graphics('whynotboth.jpg')
 ---
 # data.table v. Tidyverse?
 Since data.tables are still data.frames, just upgraded, all data.frame operations still work on them
+</br>
 --
 - This includes the tidyverse!
-
+</br></br>
 --
-Also, there's dtplyr
+Also, there's the dtplyr package
+</br>
 --
-- dtplyr is a package that modifies many of the functions in dplyr to use data.table code in the background
+- dtplyr modifies many of the functions in dplyr to use data.table code in the background
+</br>
 --
-
 - Get the speed of data.table where you need it, with less of a shock to your coding habits.
-
+</br></br></br>
 --
 Available as part of the tidyverse
 - https://dtplyr.tidyverse.org/

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>tidytext</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Colleen O’Briant" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# tidytext
+### Colleen O’Briant
+
+---
+
+
+
+
+# tidying your text
+
+
+```r
+## Load your packages here, e.g.
+pacman::p_load(tidyverse, tidytext, rjson,  dplyr, ggplot2, rlist)
+```
+
+
+
+```r
+#install.packages("tidytext")
+#library(tidytext)
+```
+
+--
+
+Tidying text is a lot like tidying data. Each variable is a column, each observation is a row.
+
+--
+
+Every meaningful unit of text (usually a word, but can also be an n-gram, sentence, or paragraph) is called a **token** and has its own row.
+
+---
+# unnest_tokens()
+
+**Tokenization** is splitting your text into rows of tokens. Use tidytext::unnest_tokens() to easily tokenize, strip punctuation and convert to lowercase.
+
+--
+
+```r
+JsonData &lt;- fromJSON(file= "message.json" )
+data_Everyone &lt;-list.select(JsonData, text) %&gt;% unlist() %&gt;% tibble()
+JsonData[[380]]$text
+```
+
+```
+## [1] "The party is still going on? "
+```
+
+```r
+JsonData[[380]]$name
+```
+
+```
+## [1] "Promise Kamanga"
+```
+---
+Use tidytext::unnest_tokens to split data into a column of words.
+
+Use tidytext::get_stopwords to remove boring words (the, I, you, etc)
+--
+
+```r
+unnested_Everyone &lt;- unnest_tokens(data_Everyone, word, .) %&gt;%
+  anti_join(get_stopwords())
+```
+
+```
+## Joining, by = "word"
+```
+
+```r
+head(unnested_Everyone)
+```
+
+```
+## # A tibble: 6 x 1
+##   word       
+##   &lt;chr&gt;      
+## 1 maybe      
+## 2 interesting
+## 3 us         
+## 4 grant's    
+## 5 class      
+## 6 https
+```
+---
+#What's my favorite words?
+
+```r
+freq_Everyone &lt;- count(unnested_Everyone, word)
+
+data_Colleen &lt;- list.filter(JsonData, name == "Colleen O'Briant") %&gt;%
+  list.select(text) %&gt;% unlist() %&gt;% tibble()
+unnested_Colleen &lt;- unnest_tokens(data_Colleen, word, .) %&gt;%
+  anti_join(get_stopwords())
+```
+
+```
+## Joining, by = "word"
+```
+
+```r
+freq_Colleen &lt;- count(unnested_Colleen, word)
+
+everyone_vs_colleen &lt;- left_join(freq_Colleen, freq_Everyone, by = "word") %&gt;% mutate(n.x/n.y) %&gt;% filter(n.x &gt; 3) %&gt;% arrange(desc(n.x/n.y))
+
+head(everyone_vs_colleen)
+```
+
+```
+## # A tibble: 6 x 4
+##   word          n.x   n.y `n.x/n.y`
+##   &lt;chr&gt;       &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;
+## 1 racquetball     7     7     1    
+## 2 volleyball      4     4     1    
+## 3 ymca            8     9     0.889
+## 4 anybody        15    19     0.789
+## 5 alright         9    12     0.75 
+## 6 court           8    11     0.727
+```
+
+---
+#Sentiment Analysis: bing
+Use tidytext::get_sentiments("bing") to use a dataset from Bing Liu &amp; collaborators. Bing categorizes words in a binary positive or negative fashion.
+
+```r
+data_Shihab &lt;- list.filter(JsonData, name == "Shihab Siddiqui") %&gt;%
+  list.select(text) %&gt;% unlist() %&gt;% tibble()
+unnested_Shihab &lt;- unnest_tokens(data_Shihab, word, .) %&gt;%
+     anti_join(get_stopwords())
+```
+
+```
+## Joining, by = "word"
+```
+
+```r
+freq_Shihab &lt;- count(unnested_Shihab, word, sort = TRUE)
+Shihab_feels &lt;- unnested_Shihab %&gt;%
+  inner_join(get_sentiments("bing"))
+```
+
+```
+## Joining, by = "word"
+```
+
+```r
+Shihab_feels &lt;- cbind(Shihab_feels, positive = ifelse(Shihab_feels$sentiment == "positive", 1, 0))
+mean(Shihab_feels$positive)
+```
+
+```
+## [1] 0.6223776
+```
+---
+#Sentiment Analysis: bing
+![](tidytext_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+---
+#Sentiment Analysis: afinn
+
+AFINN from Finn Årup Nielsen assigns words a score from -5 to 5 based on how negative or positive they are.
+--
+![](tidytext_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+# Sentiment Analysis: nrc
+
+nrc from Saif Mohammad and Peter Turney takes each word and assigns to it multiple more complicated sentiments (fear, anticipation, etc).
+--
+
+![](tidytext_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+---
+# Effect of school on our group positivity
+![](tidytext_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+---
+# Topic Modeling
+
+The next thing I would do is to partition the data into conversations (splitting by time pauses like 3 hours) and use something called
+*Latent Dirichlet allocation* to find out what topics we like and what words we use when talking about those topics.
+
+You could use topic modeling to answer questions like, 
+
+How do our conversation topics differ from regular people's conversation topics?
+
+Or even,
+
+How do our conversation topics differ from other economics cohorts conversation topics?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
