@@ -46,11 +46,20 @@ Whenever you geocode data there is a 3 step process that is undergone:
 Odds are if you are on this page then you already have a reason to use geocoding, but here is a brief motivation for how geocoding can help with a project. Geocoding is helpful when you want to do spatial work. For example, maybe you have data on voter addresses and want to visualize party allegiance. Perhaps, you are wondering who is affected by a certain watershed. If you are limited to postal addresses without being able to visualize the actual location of those addresses the inference is limited. Commuter habits, crime trends, pandemic evolution, and (fill in your example here) analyses are all improved with geocoding. Thanks, geocoding! 
 
 
+## Geocoding Services 
 
-There are many different geocoding platforms. This page will talk about [Geocodio](https://www.geocod.io/) and how to use the Goecodio platform in **R studio**.
+It is important to recognize that there are many different geocoding platforms. There are others but here is a short list of platforms to consider:
 
-### Geocodio
-[Geocodio's website](https://www.geocod.io/) is very straight forward, but I will briefly walk through the porcess:
+1. [Geocodio](https://www.geocod.io/)
+2. [Google's geocode API service](https://developers.google.com/maps/documentation/geocoding/intro)
+3. [IPUMS Geomarker](https://geomarker.ipums.org/)
+4. [ArcGIS](https://geocode.arcgis.com/arcgis/)
+
+This page will talk specifically about Geocodio and how to use the Goecodio platform in **R studio**. When you are deciding which geocode platform to use some important things to keep in mind are **pricing structures** and other specific features of the platfrom like **bulk geocoding** and **coverage**. For example, Geocodio is much more suited to geocode big data sets than Google's platform. However, Geocodio is only able to geocode within the United States and Cananda whereas Google has international capabilities. Google is better at guessing what location you are trying to geocode ("the White House") than Geocodio, but Geocodio offers census appends. The pricing sturcture is also nuanced across platforms. [Here](https://www.geocod.io/compare/) is a comparison chart provided by Geocodio that gives a flavor of what to consider when deciding which service to use (disclaimer, I find it to be a bit biased...) Lots to consider! In the end, which platform works best will depend on your preferences and the nature of your project. 
+
+
+## Geocodio
+This page will focus specifically on using Geocodio. [Geocodio's website](https://www.geocod.io/) is very straight forward, but I will briefly walk through the porcess:
 
 1. Start by making an account. This account will allow you to do your geocoding with Geocodio as well as get a Geocodio API which we can use in R studio.
 
@@ -62,8 +71,9 @@ There are many different geocoding platforms. This page will talk about [Geocodi
 
 5. Finally Geocodio will geocode your addresses and return a downloadable csv file. The cost  and the time of this process depends on the size of your data. For example, 250,000 addresses can be geocoded for $123.75 and will take about an hour to process. For estimates of both cost and time click [here](https://www.geocod.io/pricing/)
 
+# Implementations
 
-### rgeocodio
+## rgeocodio (R + Geocodio)
 
 rgeocodio allows you to access the Geocodio platform in R studio. Instead of the steps mentioned above you can use the rgeocodio to perform the same functions. 
 
@@ -159,52 +169,18 @@ What about geocoding the rest of the world, chico?
 rgeocodio::gio_batch_geocode('523-303, 350 Mokdongdong-ro, Yangcheon-Gu, Seoul, South Korea 07987')
 ```
 
-*gasp* Geocodio only works, from my understanding, in the United States and Canada, just like--never mind. We can use **Google's geocoder** to do the rest of the world.
+*gasp* Geocodio only works, from my understanding, in the United States and Canada. We would need to use a different service like **Google's geocoder** to do the rest of the world.
 
-You can use other geocode platforms like google for international stuff
+
+
 
 ## Keep in Mind
 
-- ACCURACY
-- BE CAREFUL TO NOT OVERRUN IT
-- THE PROJECT DETERMINES THE BEST PLATFORM FOR YOU
-
-## Also Consider
-
-For more resources visit the [github for rgeocodio](https://github.com/hrbrmstr/rgeocodio).
-
-### Google Geocode
-
-Google's service slightly differs from Geocodio. Google provides you with an API which you can then use to do your geocoding (or reverse geocoding). There are many different kinds of API's that google provides through [Google Cloud Platform](https://cloud.google.com/gcp/) which you will need an account to use. For more information about Google's geocode platform [here](https://developers.google.com/maps/documentation/geocoding/start) is a good place to start. On this page I will show you how to use Google's geocode API in R.
+- Be attentive to **accruacy** and **accuracy type**. Just because something is spit out doesn't mean you should use/trust it
+- When you run rgeocodio commands in R it accessing Geocodio's server so you need to consider pricing (2,500 free lookups per day)
+- One size doesn't necesarily fit all--tailor the geocode platform you choose to your project
 
 
-- LIST OF OTHER TECHNIQUES THAT WILL COMMONLY BE USED ALONGSIDE THIS PAGE'S TECHNIQUE
-- (E.G. LINEAR REGRESSION LINKS TO ROBUST STANDARD ERRORS),
-- OR INSTEAD OF THIS TECHNIQUE
-- (E.G. PIE CHART LINKS TO A BAR PLOT AS AN ALTERNATIVE)
-- WITH EXPLANATION
-- INCLUDE LINKS TO OTHER LOST PAGES WITH THE FORMAT [Description](https://lost-stats.github.io/Category/page_name.html). Categories include Data_Manipulation, Geo-Spatial, Machine_Learning, Model_Estimation, Presentation, Summary_Statistics, Time_Series, and Other
 
-# Implementations
 
-## NAME OF LANGUAGE/SOFTWARE 1
 
-```identifier for language type, see this page: https://github.com/jmm/gfm-lang-ids/wiki/GitHub-Flavored-Markdown-%28GFM%29-language-IDs
-Commented code demonstrating the technique
-```
-
-## NAME OF LANGUAGE/SOFTWARE 2 WHICH HAS MULTIPLE APPROACHES
-
-There are two ways to perform this technique in language/software 2.
-
-First, explanation of what is different about the first way:
-
-```identifier for language type, see this page: https://github.com/jmm/gfm-lang-ids/wiki/GitHub-Flavored-Markdown-%28GFM%29-language-IDs
-Commented code demonstrating the technique
-```
-
-Second, explanation of what is different about the second way:
-
-```identifier for language type, see this page: https://github.com/jmm/gfm-lang-ids/wiki/GitHub-Flavored-Markdown-%28GFM%29-language-IDs
-Commented code demonstrating the technique
-```
