@@ -1,0 +1,108 @@
+---
+title: "Julia"
+author: "Pramod Dudhe"
+date: "February 27, 2020"
+keep_md: true
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## JuliaCall
+
+Package JuliaCall is an R interface to Julia
+
+Using Julia packages in R
+
+install.packages("JuliaCall")
+
+
+```{r juliacall}
+library(JuliaCall)
+julia <- julia_setup()
+```
+
+
+## Using JuliaCall
+
+```{r using_juliacall}
+julia_call("sqrt", 2)
+x <- data.frame(a = 1:10)
+y <- data.frame(b = 1:10)
+#julia_library("Plots")
+#julia_call("plot",x,y)
+```
+
+link https://non-contradiction.github.io/JuliaCall/index.html
+
+## Juliacall and Packages
+
+Packages developed for Julia can also be used in R with JuliaCall.
+
+eg: Fixed Effects package from Julia 'FixedEffectModels.jl'
+
+install.packages(FixedEffectjlr) \
+
+\ library(FixedEffectjlr)
+
+## Using R packages in Julia
+
+Open Atom IDE 
+
+julia> Pkg.add("RCall") \
+
+\ julia> using RCall
+
+## Ways to use RCall
+
+R REPL mode - switching between julia prompt and R prompt
+
+Press $ to switch from julia prompt to R, press backspace to switch back to julia.
+
+The R REPL mode supports variable substitution of Julia objects via the $ symbol.
+
+```{r R_REPL}
+knitr::include_graphics('R_REPL.PNG')
+```
+
+## Julia expressions in REPL
+
+Also possible to pass Julia expressions in the REPL mode.
+
+```{r julia_exp}
+knitr::include_graphics('R_expression.PNG')
+```
+
+##@rput and @rget macros
+
+To transfer variables between R and Julia environments
+
+```{r julia_exp_1}
+knitr::include_graphics('Screenshot_4.PNG')
+knitr::include_graphics('Screenshot_5.PNG')
+```
+
+## Example - using R package
+
+```{r julia_exp_3}
+knitr::include_graphics('Screenshot_8.PNG')
+```
+
+## @R_str string macro
+
+Another way to use RCall is the R"" string macro, it is especially useful in script files.
+
+```{r julia_exp_2}
+knitr::include_graphics('Screenshot_6.PNG')
+```
+
+link http://juliainterop.github.io/RCall.jl/stable/gettingstarted.html
+
+
+
+
+
+
+

@@ -1,0 +1,621 @@
+---
+title: "tidytext"
+author: "Colleen O'Briant"
+output:
+  xaringan::moon_reader:
+    css: [default, metropolis, metropolis-fonts] 
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, error = TRUE, dpi=300, warning = FALSE)
+```
+
+# tidying your text
+
+```{r libs, cache=F, message=F}
+## Load your packages here, e.g.
+pacman::p_load(tidyverse, tidytext, rjson,  dplyr, ggplot2, rlist)
+```
+
+
+```{r, echo = TRUE}
+#install.packages("tidytext")
+#library(tidytext)
+```
+
+--
+
+Tidying text is a lot like tidying data. Each variable is a column, each observation is a row.
+
+--
+
+Every meaningful unit of text (usually a word, but can also be an n-gram, sentence, or paragraph) is called a **token** and has its own row.
+
+---
+# unnest_tokens()
+
+**Tokenization** is splitting your text into rows of tokens. Use tidytext::unnest_tokens() to easily tokenize, strip punctuation and convert to lowercase.
+
+--
+```{r, echo = TRUE}
+JsonData <- fromJSON(file= "message.json" )
+data_Everyone <-list.select(JsonData, text) %>% unlist() %>% tibble()
+JsonData[[380]]$text
+JsonData[[380]]$name
+```
+---
+Use tidytext::unnest_tokens to split data into a column of words.
+
+Use tidytext::get_stopwords to remove boring words (the, I, you, etc)
+--
+```{r, echo = TRUE}
+unnested_Everyone <- unnest_tokens(data_Everyone, word, .) %>%
+  anti_join(get_stopwords())
+
+head(unnested_Everyone)
+```
+---
+#What's my favorite words?
+```{r, echo = TRUE}
+freq_Everyone <- count(unnested_Everyone, word)
+
+data_Colleen <- list.filter(JsonData, name == "Colleen O'Briant") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Colleen <- unnest_tokens(data_Colleen, word, .) %>%
+  anti_join(get_stopwords())
+freq_Colleen <- count(unnested_Colleen, word)
+
+everyone_vs_colleen <- left_join(freq_Colleen, freq_Everyone, by = "word") %>% mutate(n.x/n.y) %>% filter(n.x > 3) %>% arrange(desc(n.x/n.y))
+
+head(everyone_vs_colleen)
+
+```
+
+---
+#Sentiment Analysis: bing
+Use tidytext::get_sentiments("bing") to use a dataset from Bing Liu & collaborators. Bing categorizes words in a binary positive or negative fashion.
+```{r, echo = TRUE}
+data_Shihab <- list.filter(JsonData, name == "Shihab Siddiqui") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Shihab <- unnest_tokens(data_Shihab, word, .) %>%
+     anti_join(get_stopwords())
+freq_Shihab <- count(unnested_Shihab, word, sort = TRUE)
+Shihab_feels <- unnested_Shihab %>%
+  inner_join(get_sentiments("bing"))
+Shihab_feels <- cbind(Shihab_feels, positive = ifelse(Shihab_feels$sentiment == "positive", 1, 0))
+mean(Shihab_feels$positive)
+```
+---
+#Sentiment Analysis: bing
+```{r, echo = FALSE, message = FALSE, fig.height = 3}
+data_Kevin <- list.filter(JsonData, name == "Kevin Song") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Kevin <- unnest_tokens(data_Kevin, word, .) %>%
+  anti_join(get_stopwords())
+freq_Kevin <- count(unnested_Kevin, word, sort = TRUE)
+Kevin_feels <- unnested_Kevin %>%
+  inner_join(get_sentiments("bing"))
+Kevin_feels <- cbind(Kevin_feels, positive = ifelse(Kevin_feels$sentiment == "positive", 1, 0))
+
+data_Jake <- list.filter(JsonData, name == "Jake Schefrin") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Jake <- unnest_tokens(data_Jake, word, .) %>%
+  anti_join(get_stopwords())
+freq_Jake <- count(unnested_Jake, word, sort = TRUE)
+Jake_feels <- unnested_Jake %>%
+  inner_join(get_sentiments("bing"))
+Jake_feels <- cbind(Jake_feels, positive = ifelse(Jake_feels$sentiment == "positive", 1, 0))
+
+data_Colleen <- list.filter(JsonData, name == "Colleen O'Briant") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Colleen <- unnest_tokens(data_Colleen, word, .) %>%
+  anti_join(get_stopwords())
+freq_Colleen <- count(unnested_Colleen, word, sort = TRUE)
+Colleen_feels <- unnested_Colleen %>%
+  inner_join(get_sentiments("bing"))
+Colleen_feels <- cbind(Colleen_feels, positive = ifelse(Colleen_feels$sentiment == "positive", 1, 0))
+
+data_Ethan <- list.filter(JsonData, name == "Ethan Holdahl") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Ethan <- unnest_tokens(data_Ethan, word, .) %>%
+  anti_join(get_stopwords())
+freq_Ethan <- count(unnested_Ethan, word, sort = TRUE)
+Ethan_feels <- unnested_Ethan %>%
+  inner_join(get_sentiments("bing"))
+Ethan_feels <- cbind(Ethan_feels, positive = ifelse(Ethan_feels$sentiment == "positive", 1, 0))
+
+data_Promise <- list.filter(JsonData, name == "Promise Kamanga") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Promise <- unnest_tokens(data_Promise, word, .) %>%
+  anti_join(get_stopwords())
+freq_Promise <- count(unnested_Promise, word, sort = TRUE)
+Promise_feels <- unnested_Promise %>%
+  inner_join(get_sentiments("bing"))
+Promise_feels <- cbind(Promise_feels, positive = ifelse(Promise_feels$sentiment == "positive", 1, 0))
+
+data_Robert <- list.filter(JsonData, name == "Robert Mcdonough") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Robert <- unnest_tokens(data_Robert, word, .) %>%
+  anti_join(get_stopwords())
+freq_Robert <- count(unnested_Robert, word, sort = TRUE)
+Robert_feels <- unnested_Robert %>%
+  inner_join(get_sentiments("bing"))
+Robert_feels <- cbind(Robert_feels, positive = ifelse(Robert_feels$sentiment == "positive", 1, 0))
+
+data_Lance <- list.filter(JsonData, name == "Lance Vought") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Lance <- unnest_tokens(data_Lance, word, .) %>%
+  anti_join(get_stopwords())
+freq_Lance <- count(unnested_Lance, word, sort = TRUE)
+Lance_feels <- unnested_Lance %>%
+  inner_join(get_sentiments("bing"))
+Lance_feels <- cbind(Lance_feels, positive = ifelse(Lance_feels$sentiment == "positive", 1, 0))
+
+data_Brad <- list.filter(JsonData, name == "Brad Bailey") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Brad <- unnest_tokens(data_Brad, word, .) %>%
+  anti_join(get_stopwords())
+freq_Brad <- count(unnested_Brad, word, sort = TRUE)
+Brad_feels <- unnested_Brad %>%
+  inner_join(get_sentiments("bing"))
+Brad_feels <- cbind(Brad_feels, positive = ifelse(Brad_feels$sentiment == "positive", 1, 0))
+
+data_Garrett <- list.filter(JsonData, name == "Garrett Stanford") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Garrett <- unnest_tokens(data_Garrett, word, .) %>%
+  anti_join(get_stopwords())
+freq_Garrett <- count(unnested_Garrett, word, sort = TRUE)
+Garrett_feels <- unnested_Garrett %>%
+  inner_join(get_sentiments("bing"))
+Garrett_feels <- cbind(Garrett_feels, positive = ifelse(Garrett_feels$sentiment == "positive", 1, 0))
+
+data_James <- list.filter(JsonData, name == "James Holste") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_James <- unnest_tokens(data_James, word, .) %>%
+  anti_join(get_stopwords())
+freq_James <- count(unnested_James, word, sort = TRUE)
+James_feels <- unnested_James %>%
+  inner_join(get_sentiments("bing"))
+James_feels <- cbind(James_feels, positive = ifelse(James_feels$sentiment == "positive", 1, 0))
+
+data_Pramod <- list.filter(JsonData, name == "Pramod Dudhe") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Pramod <- unnest_tokens(data_Pramod, word, .) %>%
+  anti_join(get_stopwords())
+freq_Pramod <- count(unnested_Pramod, word, sort = TRUE)
+Pramod_feels <- unnested_Pramod %>%
+  inner_join(get_sentiments("bing"))
+Pramod_feels <- cbind(Pramod_feels, positive = ifelse(Pramod_feels$sentiment == "positive", 1, 0))
+
+data_Shan <- list.filter(JsonData, name == "Shan Zhang") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Shan <- unnest_tokens(data_Shan, word, .) %>%
+  anti_join(get_stopwords())
+freq_Shan <- count(unnested_Shan, word, sort = TRUE)
+Shan_feels <- unnested_Shan %>%
+  inner_join(get_sentiments("bing"))
+Shan_feels <- cbind(Shan_feels, positive = ifelse(Shan_feels$sentiment == "positive", 1, 0))
+
+data_Tanner <- list.filter(JsonData, name == "Tanner Bivins") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Tanner <- unnest_tokens(data_Tanner, word, .) %>%
+  anti_join(get_stopwords())
+freq_Tanner <- count(unnested_Tanner, word, sort = TRUE)
+Tanner_feels <- unnested_Tanner %>%
+  inner_join(get_sentiments("bing"))
+Tanner_feels <- cbind(Tanner_feels, positive = ifelse(Tanner_feels$sentiment == "positive", 1, 0))
+
+data_Zoe <- list.filter(JsonData, name == "Zoe Ross") %>%
+  list.select(text) %>% unlist() %>% tibble()
+unnested_Zoe <- unnest_tokens(data_Zoe, word, .) %>%
+  anti_join(get_stopwords())
+freq_Zoe <- count(unnested_Zoe, word, sort = TRUE)
+Zoe_feels <- unnested_Zoe %>%
+  inner_join(get_sentiments("bing"))
+Zoe_feels <- cbind(Zoe_feels, positive = ifelse(Zoe_feels$sentiment == "positive", 1, 0))
+
+plot_data <- c("Zoe", mean(Zoe_feels$positive),
+               "Tanner", mean(Tanner_feels$positive),
+               "Shihab", mean(Shihab_feels$positive),
+               "Shan", mean(Shan_feels$positive),
+               "Robert", mean(Robert_feels$positive),
+               "Promise", mean(Promise_feels$positive),
+               "Pramod", mean(Pramod_feels$positive),
+               "Lance", mean(Lance_feels$positive),
+               "Kevin", mean(Kevin_feels$positive),
+               "James", mean(James_feels$positive),
+               "Jake", mean(Jake_feels$positive),
+               "Garrett", mean(Garrett_feels$positive),
+               "Ethan", mean(Ethan_feels$positive),
+               "Colleen", mean(Colleen_feels$positive),
+               "Brad", mean(Brad_feels$positive)
+               )
+plot <- matrix(plot_data, nrow = 15, byrow = T) %>%
+  as.data.frame()
+plot$V2 <- as.numeric(as.character(plot$V2))
+
+ggplot(plot, aes(x = reorder(V1, -V2), y = V2)) +
+  geom_bar(stat = "identity") +
+  ylab("Positivity") +
+  xlab("Student")
+```
+---
+#Sentiment Analysis: afinn
+
+AFINN from Finn Årup Nielsen assigns words a score from -5 to 5 based on how negative or positive they are.
+--
+```{r, echo = FALSE, message = FALSE, fig.height = 3}
+Zoe_feels <- unnested_Zoe %>%
+  inner_join(get_sentiments("afinn"))
+Brad_feels <- unnested_Brad %>%
+  inner_join(get_sentiments("afinn"))
+Shan_feels <- unnested_Shan %>%
+  inner_join(get_sentiments("afinn"))
+Colleen_feels <- unnested_Colleen %>%
+  inner_join(get_sentiments("afinn"))
+Garrett_feels <- unnested_Garrett %>%
+  inner_join(get_sentiments("afinn"))
+Ethan_feels <- unnested_Ethan %>%
+  inner_join(get_sentiments("afinn"))
+Robert_feels <- unnested_Robert %>%
+  inner_join(get_sentiments("afinn"))
+Pramod_feels <- unnested_Pramod %>%
+  inner_join(get_sentiments("afinn"))
+Promise_feels <- unnested_Promise %>%
+  inner_join(get_sentiments("afinn"))
+Tanner_feels <- unnested_Tanner %>%
+  inner_join(get_sentiments("afinn"))
+James_feels <- unnested_James %>%
+  inner_join(get_sentiments("afinn"))
+Shihab_feels <- unnested_Shihab %>%
+  inner_join(get_sentiments("afinn"))
+Lance_feels <- unnested_Lance %>%
+  inner_join(get_sentiments("afinn"))
+Kevin_feels <- unnested_Kevin %>%
+  inner_join(get_sentiments("afinn"))
+Jake_feels <- unnested_Jake %>%
+  inner_join(get_sentiments("afinn"))
+
+plot_data <- c("Zoe", mean(Zoe_feels$value),
+               "Tanner", mean(Tanner_feels$value),
+               "Shihab", mean(Shihab_feels$value),
+               "Shan", mean(Shan_feels$value),
+               "Robert", mean(Robert_feels$value),
+               "Promise", mean(Promise_feels$value),
+               "Pramod", mean(Pramod_feels$value),
+               "Lance", mean(Lance_feels$value),
+               "Kevin", mean(Kevin_feels$value),
+               "James", mean(James_feels$value),
+               "Jake", mean(Jake_feels$value),
+               "Garrett", mean(Garrett_feels$value),
+               "Ethan", mean(Ethan_feels$value),
+               "Colleen", mean(Colleen_feels$value),
+               "Brad", mean(Brad_feels$value)
+)
+
+plot <- matrix(plot_data, nrow = 15, byrow = T) %>%
+  as.data.frame()
+plot$V2 <- as.numeric(as.character(plot$V2))
+
+
+ggplot(plot, aes(x = reorder(V1, -V2), y = V2)) +
+  geom_bar(stat = "identity") +
+  ylab("Positivity") +
+  xlab("Student")
+```
+
+---
+
+# Sentiment Analysis: nrc
+
+nrc from Saif Mohammad and Peter Turney takes each word and assigns to it multiple more complicated sentiments (fear, anticipation, etc).
+--
+
+```{r, echo = FALSE, message = FALSE, fig.height = 3}
+Zoe_feels <- unnested_Zoe %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Zoe = n())
+Brad_feels <- unnested_Brad %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Brad = n())
+Shan_feels <- unnested_Shan %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Shan = n())
+Colleen_feels <- unnested_Colleen %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Colleen = n())
+Garrett_feels <- unnested_Garrett %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Garrett = n())
+Ethan_feels <- unnested_Ethan %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Ethan = n())
+Robert_feels <- unnested_Robert %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Robert = n())
+Pramod_feels <- unnested_Pramod %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Pramod = n())
+Promise_feels <- unnested_Promise %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Promise = n())
+Tanner_feels <- unnested_Tanner %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Tanner = n())
+James_feels <- unnested_James %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(James = n())
+Shihab_feels <- unnested_Shihab %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Shihab = n())
+Lance_feels <- unnested_Lance %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Lance = n())
+Kevin_feels <- unnested_Kevin %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Kevin = n())
+Jake_feels <- unnested_Jake %>%
+  inner_join(get_sentiments("nrc")) %>%
+  group_by(sentiment) %>%
+  summarize(Jake = n())
+
+plot_data <- cbind("sentiment" = Zoe_feels$sentiment,
+      "Zoe" = Zoe_feels$Zoe/sum(Zoe_feels$Zoe),
+      "Shan" = Shan_feels$Shan/sum(Shan_feels$Shan), 
+      "Garrett" = Garrett_feels$Garrett/sum(Garrett_feels$Garrett),
+      "Ethan" = Ethan_feels$Ethan/sum(Ethan_feels$Ethan),
+      "Promise" = Promise_feels$Promise/sum(Promise_feels$Promise),
+      "Robert" = Robert_feels$Robert/sum(Robert_feels$Robert),
+      "Brad" = Brad_feels$Brad/sum(Brad_feels$Brad),
+      "Pramod" = Pramod_feels$Pramod/sum(Pramod_feels$Pramod),
+      "Lance" = Lance_feels$Lance/sum(Lance_feels$Lance),
+      "Colleen" = Colleen_feels$Colleen/sum(Colleen_feels$Colleen),
+      "Shihab" = Shihab_feels$Shihab/sum(Shihab_feels$Shihab),
+      "Kevin" = Kevin_feels$Kevin/sum(Kevin_feels$Kevin),
+      "Tanner" = Tanner_feels$Tanner/sum(Tanner_feels$Tanner),
+      "James" = James_feels$James/sum(James_feels$James),
+      "Jake" = Jake_feels$Jake/sum(Jake_feels$Jake)
+      )
+
+plot_data <- plot_data %>%
+  as.data.frame() %>%
+  pivot_longer(cols = c(Zoe, Shan, Garrett, Ethan, Promise, Robert, Pramod, 
+                 Lance, Colleen, Shihab, Kevin, Tanner, James, Jake, Brad)) %>%
+  filter(sentiment != "positive") %>%
+  filter(sentiment != "negative")
+
+ggplot(plot_data, aes(x=name, y=as.numeric(as.character(value)))) + 
+  geom_bar(stat = "identity") + 
+  facet_wrap( ~ sentiment, ncol=4)
+```
+---
+# Effect of school on our group positivity
+```{r, echo = FALSE, message = FALSE, fig.height = 3}
+data_Everyone_Sep2018 <- 
+  list.filter(JsonData, 1536186350 <= created_at & created_at < 1538352000) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Sep2018 <- unnest_tokens(data_Everyone_Sep2018, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Sep2018_feels <- unnested_Everyone_Sep2018 %>%
+  inner_join(get_sentiments("afinn"))
+
+
+data_Everyone_Oct2018 <- 
+  list.filter(JsonData, 1538352000 <= created_at & created_at < 1541030400) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Oct2018 <- unnest_tokens(data_Everyone_Oct2018, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Oct2018_feels <- unnested_Everyone_Oct2018 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Nov2018 <- 
+  list.filter(JsonData, 1541030400 <= created_at & created_at < 1543622400) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Nov2018 <- unnest_tokens(data_Everyone_Nov2018, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Nov2018_feels <- unnested_Everyone_Nov2018 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Dec2018 <- 
+  list.filter(JsonData, 1543622400 <= created_at & created_at < 1546300800) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Dec2018 <- unnest_tokens(data_Everyone_Dec2018, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Dec2018_feels <- unnested_Everyone_Dec2018 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Jan2019 <- 
+  list.filter(JsonData, 1546300800 <= created_at & created_at < 1548979200) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Jan2019 <- unnest_tokens(data_Everyone_Jan2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Jan2019_feels <- unnested_Everyone_Jan2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Feb2019 <- 
+  list.filter(JsonData, 1548979200 <= created_at & created_at < 1551398400) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Feb2019 <- unnest_tokens(data_Everyone_Feb2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Feb2019_feels <- unnested_Everyone_Feb2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Mar2019 <- 
+  list.filter(JsonData, 1551398400 <= created_at & created_at < 1554076800) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Mar2019 <- unnest_tokens(data_Everyone_Mar2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Mar2019_feels <- unnested_Everyone_Mar2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Apr2019 <- 
+  list.filter(JsonData, 1554076800 <= created_at & created_at < 1556668800) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Apr2019 <- unnest_tokens(data_Everyone_Apr2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Apr2019_feels <- unnested_Everyone_Apr2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_May2019 <- 
+  list.filter(JsonData, 1556668800 <= created_at & created_at < 1559347200) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_May2019 <- unnest_tokens(data_Everyone_May2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_May2019_feels <- unnested_Everyone_May2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Jun2019 <- 
+  list.filter(JsonData, 1559347200 <= created_at & created_at < 1561939200) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Jun2019 <- unnest_tokens(data_Everyone_Jun2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Jun2019_feels <- unnested_Everyone_Jun2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Jul2019 <- 
+  list.filter(JsonData, 1561939200 <= created_at & created_at < 1564617600) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Jul2019 <- unnest_tokens(data_Everyone_Jul2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Jul2019_feels <- unnested_Everyone_Jul2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Aug2019 <- 
+  list.filter(JsonData, 1564617600 <= created_at & created_at < 1567296000) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Aug2019 <- unnest_tokens(data_Everyone_Aug2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Aug2019_feels <- unnested_Everyone_Aug2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Sep2019 <- 
+  list.filter(JsonData, 1567296000 <= created_at & created_at < 1569888000) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Sep2019 <- unnest_tokens(data_Everyone_Sep2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Sep2019_feels <- unnested_Everyone_Sep2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Oct2019 <- 
+  list.filter(JsonData, 1569888000 <= created_at & created_at < 1572566400) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Oct2019 <- unnest_tokens(data_Everyone_Oct2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Oct2019_feels <- unnested_Everyone_Oct2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Nov2019 <- 
+  list.filter(JsonData, 1572566400 <= created_at & created_at < 1575158400) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Nov2019 <- unnest_tokens(data_Everyone_Nov2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Nov2019_feels <- unnested_Everyone_Nov2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Dec2019 <- 
+  list.filter(JsonData, 1575158400 <= created_at & created_at < 1577836800) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Dec2019 <- unnest_tokens(data_Everyone_Dec2019, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Dec2019_feels <- unnested_Everyone_Dec2019 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Jan2020 <- 
+  list.filter(JsonData, 1577836800 <= created_at & created_at < 1580515200) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Jan2020 <- unnest_tokens(data_Everyone_Jan2020, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Jan2020_feels <- unnested_Everyone_Jan2020 %>%
+  inner_join(get_sentiments("afinn"))
+
+data_Everyone_Feb2020 <- 
+  list.filter(JsonData, 1580515200 <= created_at) %>% 
+  list.select(text) %>%
+  unlist() %>% tibble()
+unnested_Everyone_Feb2020 <- unnest_tokens(data_Everyone_Feb2020, word, .) %>%
+  anti_join(get_stopwords())
+Everyone_Feb2020_feels <- unnested_Everyone_Feb2020 %>%
+  inner_join(get_sentiments("afinn"))
+
+plot_data <- c("Sept 2018", mean(Everyone_Sep2018_feels$value),
+               "Oct 2018", mean(Everyone_Oct2018_feels$value),
+               "Nov 2018", mean(Everyone_Nov2018_feels$value),
+               "Dec 2018", mean(Everyone_Dec2018_feels$value),
+               "Jan 2019", mean(Everyone_Jan2019_feels$value),
+               "Feb 2019", mean(Everyone_Feb2019_feels$value),
+               "March 2019", mean(Everyone_Mar2019_feels$value),
+               "Apr 2019", mean(Everyone_Apr2019_feels$value),
+               "May 2019", mean(Everyone_May2019_feels$value),
+               "June 2019", mean(Everyone_Jun2019_feels$value),
+               "July 2019", mean(Everyone_Jul2019_feels$value),
+               "Aug 2019", mean(Everyone_Aug2019_feels$value),
+               "Sept 2019", mean(Everyone_Sep2019_feels$value),
+               "Oct 2019", mean(Everyone_Oct2019_feels$value),
+               "Nov 2019", mean(Everyone_Nov2019_feels$value),
+               "Dec 2019", mean(Everyone_Dec2019_feels$value),
+               "Jan 2020", mean(Everyone_Jan2020_feels$value),
+               "Feb 2020", mean(Everyone_Feb2020_feels$value)
+)
+
+plot <- matrix(plot_data, ncol = 2, byrow = T) %>%
+  as.data.frame()
+plot$V2 <- as.numeric(as.character(plot$V2))
+plot$V1 <- factor(plot$V1, levels = plot$V1)
+
+ggplot(plot, aes(x = V1, y = V2)) +
+  geom_bar(stat = "identity") +
+  ylab("Positivity") +
+  xlab("Month") +
+  theme(axis.text.x = element_text(angle = 90))
+```
+---
+# Topic Modeling
+
+The next thing I would do is to partition the data into conversations (splitting by time pauses like 3 hours) and use something called
+*Latent Dirichlet allocation* to find out what topics we like and what words we use when talking about those topics.
+
+You could use topic modeling to answer questions like, 
+
+How do our conversation topics differ from regular people's conversation topics?
+
+Or even,
+
+How do our conversation topics differ from other economics cohorts conversation topics?
+
+
