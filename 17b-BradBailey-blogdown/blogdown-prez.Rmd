@@ -9,14 +9,15 @@ output: ioslides_presentation
 
 Static website generator:  
 
+- A static website is "a web page that is delivered to the user's web browser exactly as stored" ([Wikipedia](https://en.wikipedia.org/wiki/Static_web_page))
 - Installed automatically when you install blogdown
 - Great software, except missing support for Rmarkdown files  
 
-Blogdown builds on Hugo's speed and reliability to enable creation of websites in R!  
+Blogdown builds on Hugo's speed and reliability to enable creation of websites with Rmarkdown support in RStudio!  
 
 ## blogdown
 
-Functionality through the 'addins' dropdown menu next to the panes button:  
+Functionality through the 'addins' dropdown menu, next to the 'panes' button:  
 
 - Serve Site: Live, local preview of your website
 - New Post
@@ -49,8 +50,14 @@ However, you suffer some decrease in speed by using Rmarkdown compared to markdo
 Once you've created your website locally, you need to host it on a server for the world to see.
 There are a few options for free hosting services, but the authors reccomend [Netlify](https://www.netlify.com).
 
+You can sign up for Netlify using your Github account! Once your account is created, you can either upload your 'public/' folder to launch your website immediately, or you can click "New site from Git" to select a Git repo that Netlify will use to create your site *continuously*! I reccommended you specify 'hugo' under 'Build Command' and 'public' for 'Publish Directory'.
+
+That's it! You can now make changes to your website in RStudio, push to your repo, and Netlify will automatically update your site for you.
+
 ## Resources and references
 
 - [The Book](https://bookdown.org/yihui/blogdown/)
 - [Demo Website](https://blogdown-demo.rbind.io/)
+- [Themes](http://themes.gohugo.io)
+- [Netlify](https://www.netlify.com)
 

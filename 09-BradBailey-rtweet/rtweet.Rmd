@@ -38,6 +38,8 @@ output:
 
 Basic funtionality requires a twitter account and the 'httpuv' package: running an rtweet function in a live session of RStudio will prompt a browser popup to authorize the embedded 'rstats2twitter' app.
 
+Location functionality requires a google api key.
+
 For full functionality (posting tweets etc.) one must apply for a twitter developer account and create a user app. See https://rtweet.info/articles/auth.html.
 
 ## Examples
