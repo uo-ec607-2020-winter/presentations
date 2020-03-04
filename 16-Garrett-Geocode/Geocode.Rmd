@@ -32,7 +32,7 @@ Geocoding is helpful when we want to do spatial work. For example, maybe we have
 ##Geocodio
 There are many geocoding platforms (services that do the geocoding or reverse geocoding for you). Today we are going to look at Geocodio and its R interface rGeocodio--as well as briefly touch on Google's geocode platform.
 
-Let's check out how the website works: [geocodio's website](https://dash.geocod.io/).
+Let's check out how the website works: [geocodio's website](https://www.geocod.io/).
 
 Things to consider:
 
