@@ -16,7 +16,7 @@ p_load(png, grid)
 
 ## Spark, an introduction
 ```{r, echo=FALSE, fig.align='center'}
-knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\spark_logo_2x.png")
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\18-jake_schefrin_spark_files\\figure-html\\spark_logo_2x.png")
 ```
 
 - Spark is open source unified analytics engine that assists with data processing and machine learning.
@@ -30,7 +30,7 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 ## What is Hadoop?
 
 ```{r, fig.align='center', echo=FALSE, out.width = "200px"}
-knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\hadoop.jpg")
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\18-jake_schefrin_spark_files\\figure-html\\hadoop.jpg")
 
 ```
 
@@ -43,7 +43,7 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 ## So why Spark?
 
 ```{r, echo = FALSE, fig.align='center', out.width = "300px"}
-knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\speed.jpg")
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\18-jake_schefrin_spark_files\\figure-html\\speed.jpg")
 ```
 
 - SPEED! Spark was designed to be much faster than Hadoop. It does this by saving fewer operations to disk, and using RAM.
@@ -69,7 +69,7 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 - Grant will say you should care so you should, otherwise face Grant Moff Tarkin's wrathful glare
 
 ```{r, echo = FALSE, fig.align='center', out.width = "400px" }
-knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\tarkin.jpg")
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\18-jake_schefrin_spark_files\\figure-html\\tarkin.jpg")
 
 ```
 
@@ -79,5 +79,5 @@ knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentat
 
 ``` {r, echo = FALSE, fig.align='center', out.width = "400px"}
 
-knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\jake_schefrin_spark_files\\figure-html\\monetdb.png")
+knitr::include_graphics("C:\\Users\\Jake\\Desktop\\Skool\\Grant Class\\presentations\\18-jake_schefrin_spark_files\\figure-html\\monetdb.png")
 ```
