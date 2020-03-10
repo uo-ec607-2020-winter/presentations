@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Big Data</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Chris Berg" />
+    <meta name="date" content="2020-03-10" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Big Data
+### Chris Berg
+### University of Oregon
+### 2020-03-10
+
+---
+
+
+
+
+# "Big Data"
+
+&lt;img src="ignorance.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Big Data: How big is "Big"?
+
+Try guessing: How big is Google's web crawler database?
+
+  - 250 Terabytes (TB) (=250,000 GB; your laptop probably has 500GB of hard drive space)
+  - 5000 TB ( 1TB = 1000GB )
+  - 100 Petabytes (PB) (1PB = 100,000,000GB)
+  - 12 Exabytes (EB) (1EB = 1,000,000TB)
+  
+---
+# Big Data: How big is "Big"?
+
+Try guessing: How big is Google's web crawler database?
+
+  - 250 Terabytes (TB) (=250,000 GB; your laptop probably has 500GB of hard drive space)
+  - 5000 TB ( 1TB = 1000GB )
+  - 100 Petabytes (PB) (1PB = 100,000,000GB)
+  - **12 Exabytes (EB) (1EB = 1,000,000TB)**
+  
+---
+# What do you do with data that big?
+
+- Your computer can't hold more than 15-30GB of RAM usually, so good luck running a regression on data that big.
+
+--
+
+- If you are doing econometric and causal analysis, like us, you can work with [Google Cloud](http://cloud.google.com) or [Talapas](http://hpcf.uoregon.edu). 
+
+
+- If you have data that's **really big** like Google data, you (or your boss) probably wants you to use it to predict stuff.
+
+  - Mortage defaults, bankruptcies, probability of a claim being filed, recessions ('sup Jeremy), success of programs, and more.
+  
+--
+
+- Your data gives you good opportunities to do this!
+
+---
+# Machine Learning
+
+- If you wanted to, say...
+
+--
+
+- Predict the effects of open waste burning for a community?
+  - Might train a model using remote sensor data from across the globe.
+
+--
+
+- Predict how groundwater remediation will affect neighborhood development outcomes?
+  - May take lots of data from remediation projects across the country and fit models.
+  
+
+---
+# Causality and Prediction
+
+&lt;img src="predict-and-cause.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+
+- `\(\frac{\partial Y}{\partial X_0}\)` is what we get when we use methods from Ben's class.
+
+--
+
+- Thinking about the "prediction" term: If `\(Y\)` is "rain" and `\(X_0\)` is some policy, our payoff `\(\pi( \cdot )\)` is "dryness." We would need to know how wet it will be in order to know our marginal payoff ( `\(\frac{\partial \pi}{\partial X_0}(Y)\)` ).
+
+---
+# Causality and Prediction
+
+- `\(X_0\)` might just be "use an umbrella" in which case `\(\frac{\partial Y}{\partial X_0} = 0\)` (umbrellas keep us dry but don't stop it from raining) but `\(\frac{\partial \pi}{\partial X_0}(Y) &gt; 0\)`. Pure prediction problem now.
+
+- `\(X_0\)` might be "sacrifice a pig to Zeus" which has a pure causal impact on rain but otherwise no impact on being dry ( `\(\frac{\partial \pi}{\partial X_0}(Y) = 0\)` and `\(\frac{\partial Y}{\partial X_0} &lt; 0\)` ). Pure causal inference problem.
+
+
+---
+# Causality and Prediction
+
+- "Standard empirical techniques are not optimized for prediction problems..."
+
+- When using OLS with an eye towards inference, we might "throw-out" one variable in (suppose) a 2-variable problem if `\(\frac{\hat{\beta_2}}{\widehat{s.e.}}\)` is small. 
+
+--
+
+  - Bad idea! Including `\(x_2\)` in this case might help our step-ahead *prediction* of `\(\hat{y}\)` even if our estimate of it is biased. .footnote[(Think back to George's class, or ask Kevin, to be reminded that more variables lead to better model fit)]
+  
+---
+# The "bias-variance tradeoff" 
+
+Throwback to Van's class! Let `\(f\)` be the prediction function for `\(y\)`...
+
+`\begin{align*}
+E[(y - \hat{f})^2] = E[( (f + \varepsilon) - \hat{f})^2] &amp;= E[( (f + \varepsilon) - \hat{f} + E[\hat{f}] - E[\hat{f}])^2] \\
+&amp;= E[( (f - E[\hat{f}]) + (E[\hat{f}]  - \hat{f}) + \varepsilon )^2]
+\end{align*}`
+
+--
+
+Bearing in mind that `\(\varepsilon \sim iid\)` this all reduces to:
+
+`$$E[(y - \hat{f})^2] = \text{Bias}[\hat{f}]^2 + \text{Var}[\hat{f}] + \sigma^2$$`
+
+
+- Our squared prediction error can be broken down as a function of bias (squared) and variance.
+
+--
+
+- A given model `\(\hat{f}\)` will have lower bias if it includes more terms/is more "flexible", in other words... But it "generally" comes at the cost of having a higher model variance; `\(\text{Var}[\hat{f}]\)` .
+
+
+---
+# Machine learning
+
+Machine learning (ML) techniques are predicated on this trade-off. We can actually recover OLS from this trade-off, too!
+
+--
+
+- "OLS is a special case where we put an infinite (relative) price on bias..." (Kleinberg et. al. 2015)
+
+--
+
+- Machine learning is for when we want to make very effective out-of-sample predictions, and prioritizing sample unbiasedness above all else *isn't* the way to do this.
+
+--
+
+- Machine learning says: In fact, the parameter which weighs variance into our model selection process ( `\(\lambda\)` ; the "tuning parameter" that Jeremy taught us about if you remember that from last term) can be selected optimally!
+
+--
+
+  - Jake is going to teach us about **cross-validation** which is a way we can pick the "best" tuning parameter for our data
+  
+---
+# Risk in machine learning: Overfitting
+
+- We now know that machine learning can help us make good predictions over our big data, by incorporating a penalty for a higher-variance model-- and Jake will get into a lot of good detail in his cross-validation presentation.
+
+--
+
+- I want to highlight one of the famous pitfalls or potential abuses of machine-learning: **Overfitting.**
+
+--
+
+
+&lt;img src="biasvariance-overfitting.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Risk in machine learning: Overfitting
+
+- We now know that machine learning can help us make good predictions over our big data, by incorporating a penalty for a higher-variance model-- and Jake will get into a lot of good detail in his cross-validation presentation.
+
+- I want to highlight one of the famous pitfalls or potential abuses of machine-learning: **Overfitting.**
+
+&lt;img src="biasvariance-overfitting-pt2.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+---
+# Overfitting
+
+&lt;img src="biasvariance-overfitting-pt2.png" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
+
+- The red arrows show where, making the model more "flexible" (i.e. a 3rd-order polynomial fit is "more flexible" than a linear fit) starts to make it perform really well in our training sample (lower MSE, bottom line) but perform really bad in the testing sample (higher MSE, upper blue line).
+
+--
+
+  - By the way, this figure is from [Ed's fantastic lecture notes.](https://raw.githack.com/edrubin/EC524W20/master/lecture/002/002-slides.html)
+  
+---
+# Lessons to conclude
+
+- Big data offers us an opportunity to make great predictions, which could help us pick effective policies as a complement to causal inference.
+
+--
+
+- OLS we've been using all year is like a special case where we downweight the "variance" part of the "bias-variance tradeoff" to zero (upweights unbiasedness "infinitely")
+
+--
+
+- There are many machine learning methods that account for variance in the trade-off that can help us use our big data to make better predictions.
+
+--
+
+- Overfitting is bad. Really try to not do it.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
