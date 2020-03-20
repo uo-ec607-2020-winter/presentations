@@ -40,7 +40,7 @@ Topics will be allocated on a first-come-first-served basis. Each person is expe
 | 19 | Big data | [a](https://www.aeaweb.org/articles?id=10.1257/jep.28.2.3), [b](https://www.aeaweb.org/articles?id=10.1257/aer.p20151023), [c](https://www.aeaweb.org/articles?id=10.1257/jep.31.2.87)  | Chris Berg | 
 |    | Cross-validation |  | Jake Schefrin | 
 | 20 | drake |  | Pramod Dudhe | 
-|    | rcpp |  | [James](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-James-RCPP/James-rcpp.html) | 
+|    | rcpp |  | [James](https://raw.githack.com/uo-ec607-2020-winter/presentations/master/17-James-RCPP/James-rcpp.html#1) | 
 
 ### Open topic and package suggestions
 
