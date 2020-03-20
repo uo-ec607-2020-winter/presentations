@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Conda and Jupyter Notes - Putting the Environment in Environmental ECON</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="James Holste" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Conda and Jupyter Notes - Putting the Environment in Environmental ECON
+### James Holste
+### 2/17/2020
+
+---
+
+
+
+
+# Table of Contents
+
+---
+
+# RCPP
+
+*** What is RCPP? ***
+Its for all those times where your code is too slow.
+Slow enough to learn a whole new programming language.
+Rcpp enables you to write C++ code in R!
+
+```r
+knitr::include_graphics("rcpp_performance'.png")
+```
+
+&lt;img src="rcpp_performance'.png" width="500px" height="250px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Getting Started
+
+Install the RCPP package
+```{}
+if (!require("pacman")) install.packages("pacman")
+p_load(pacman)
+```
+In addition you will need to install a C++ compiler: \\
+*For the enlightened folk on Windows systems: install [Rtools](https://cran.r-project.org/bin/windows/Rtools/) \\
+*On Linux: 
+```{}
+sudo apt-get install r-base-dev
+```
+*If you are down on your luck and own a Mac: install Xcode from the app store
+
+---
+
+# Differences from R
+
+In the C++ function each line must be terminated with a ";". \\
+
+You must declare object types when using commands in C++. \\
+
+The function MUST have an explicit return statement. Similar to R, there can be multiple returns, but the function will terminate when it hits it’s first return statement. \\
+
+You do not use assignment when creating a function. \\
+
+Object assignment must use = sign. (The &lt;- operator isn’t valid.) \\
+
+One line comments can be created using //. Block comments are created using /*...*/ instead of "#"
+
+---
+
+
+```r
+knitr::include_graphics("cpptypes.png")
+```
+
+&lt;img src="cpptypes.png" width="500px" height="250px" style="display: block; margin: auto;" /&gt;
+---
+
+# The cppFunction() Command
+
+cppFunction() enables you to write C++ code in R, just wrap the C++ code in '' \\
+Example:
+```{}
+cppFunction('int add(int x, int y, int z) {
+  int sum = x + y + z;
+  return sum;
+}')
+# add works like a regular R function
+add
+#&gt; function (x, y, z) 
+#&gt; .Call(&lt;pointer: 0x7f08dc8450d0&gt;, x, y, z)
+add(1, 2, 3)
+#&gt; [1] 6
+```
+---
+
+# Using R in C++ with sourceCpp
+
+In C++ we can embed R Code by starting the C++ file with
+```{}
+#include &lt;Rcpp.h&gt;
+using namespace Rcpp;
+/*** R
+# Insert R Code Here
+*/
+```
+Example
+```{}
+#include &lt;Rcpp.h&gt;
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double meanC(NumericVector x) {
+  int n = x.size();
+  double total = 0;
+
+  for(int i = 0; i &lt; n; ++i) {
+    total += x[i];
+  }
+  return total / n;
+}
+
+/*** R
+x &lt;- runif(1e5)
+bench::mark(
+  mean(x),
+  meanC(x)
+)
+*/
+```
+
+---
+
+# Lists and Dataframes
+
+Rcpp have both list and df classes, however you must specify the class beforehand. \\
+Example: Extracting Mean Percentage Error from lm()
+```{}
+#include &lt;Rcpp.h&gt;
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+double mpe(List mod) {
+  if (!mod.inherits("lm")) stop("Input must be a linear model");
+
+  NumericVector resid = as&lt;NumericVector&gt;(mod["residuals"]);
+  NumericVector fitted = as&lt;NumericVector&gt;(mod["fitted.values"]);
+
+  int n = resid.size();
+  double err = 0;
+  for(int i = 0; i &lt; n; ++i) {
+    err += resid[i] / (fitted[i] + resid[i]);
+  }
+  return err / n;
+}
+
+mod &lt;- lm(mpg ~ wt, data = mtcars)
+mpe(mod)
+#&gt; [1] -0.0154
+```
+
+---
+
+# Functions 
+
+Specify with the object type function. Then you can use the catchall term Robject.
+```{}
+#include &lt;Rcpp.h&gt;
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+RObject callWithOne(Function f) {
+  return f(1);
+}
+
+callWithOne(function(x) x + 1)
+#&gt; [1] 2
+callWithOne(paste)
+#&gt; [1] "1"
+```
+---
+
+# References
+
+[RCPP Package](http://dirk.eddelbuettel.com/code/rcpp.html) \\
+[RCPP Basics](https://adv-r.hadley.nz/rcpp.html) \\
+[More RCPP](https://csgillespie.github.io/efficientR/performance.html#rcpp) \\
+[C++ Tutorial](https://www.w3schools.com/cpp/cpp_for_loop.asp) \\
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
